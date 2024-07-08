@@ -1,0 +1,36 @@
+.link-container {
+    display: flex;
+    align-items: center; /* Ensures vertical alignment is centered */
+    justify-content: flex-end; /* Aligns the content to the right */
+    flex-grow: 1; /* Allows the container to take up remaining space */
+  }
+  
+  .search, .cart, .avatar, .sign-in {
+    display: flex;
+    margin-left: 1rem; /* Adds spacing between items */
+  }
+  
+  
+  
+
+  .sign-in Button{
+    font-weight: 800;
+    font-size: x-large;
+  }
+  
+  /* Additional styles to ensure proper sizing and interactivity */
+  .search-icon, .cart-icon {
+    width: 30px; /* Adjust size as needed */
+    height: 30px; /* Adjust size as needed */
+    background-color: aqua;
+  }
+  
+  /* Utility classes for buttons and icons */
+  .button-text {
+    color: white; /* Ensures text is visible on blue background */
+  }
+  
+  .nav-logo img {
+    height: 50px; /* Adjust logo size */
+  }
+  
