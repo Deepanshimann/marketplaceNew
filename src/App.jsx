@@ -1,23 +1,13 @@
-import { useState } from 'react'
-import Navbar from './customer/component/navigation/Navbar'
-import './App.css'
-// import Homepage from './customer/component/pages/Homepage/Homepage'
-// import Product from  './customer/component/products/Product'
-import ProductDetails from './customer/component/ProductDetails/ProductDetails'
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import CustomerRoute from './Routers/CustomerRoute';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-    <div>
-    <Navbar/>
-    </div>
-     <div>
-      <ProductDetails/>
-     </div>
-    </>
-  )
+    <Routes>
+      <Route path='/*' element={<CustomerRoute />} />
+    </Routes>
+  );
 }
 
-export default App
+export default App;

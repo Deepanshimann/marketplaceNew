@@ -2,7 +2,7 @@ import React from 'react';
 import Firstpage from '../../Carousel/Firstpage';
 import SecondSection from '../../Second-section/SecondSection';
 import MenKurta from "../../../../Data/MenKurta";
-import Footer from '../../Footer/Footer';
+
 
 const Homepage = () => {
     return (
@@ -13,7 +13,7 @@ const Homepage = () => {
             <SecondSection data={MenKurta} sectionName={"Women's Kurta"}/>
             <SecondSection data={MenKurta} sectionName={"Men's Shirt"} />
             <SecondSection data={MenKurta} sectionName={"Women's Shirt"}/>
-            <Footer/>
+          
             </div>
         </div>
     );
