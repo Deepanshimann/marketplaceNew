@@ -6,6 +6,9 @@ import Navbar from '../customer/component/navigation/Navbar';
 import Product from '../customer/component/products/Product';
 import ProductDetails from '../customer/component/ProductDetails/ProductDetails';
 import Footer from '../customer/component/Footer/Footer';
+import Checkout from '../customer/component/Checkout/Checkout';
+import OrderDetails from '../customer/component/Order/OrderDetails';
+import Orderpage from '../customer/component/Order/Orderpage';
 
 const CustomerRoute = () => {
   return (
@@ -18,6 +21,9 @@ const CustomerRoute = () => {
         <Route path='/cart' element={<Cart />}></Route>
         <Route path='/:levelOne/:levelTwo/:levelThree' element={<Product />} />
         <Route path='/product/:productId' element={<ProductDetails />} />
+        <Route path='/checkout' element={<Checkout/>} />
+        <Route path='/account/order' element={<Orderpage/>} />
+        <Route path='/account/order/:orderId' element={<OrderDetails/>} />
       </Routes>
       <div>
         <Footer />
