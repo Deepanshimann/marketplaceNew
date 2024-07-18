@@ -1,9 +1,10 @@
 
 'use client'
 import ReviewCard from './ReviewCard'
+import { useNavigate } from 'react-router-dom';
 import SecondSectionCard from '../SecondSectionCard/SecondSectionCard'
 import MenKurta from '../../../Data/MenKurta'
-import {Grid, Box } from '@mui/material'
+import {Grid, Box,Button } from '@mui/material'
 // import LinearProgress from '@mui/joy/LinearProgress';
 import { useState } from 'react'
 // import { StarIcon } from '@heroicons/react/20/solid'
@@ -70,6 +71,10 @@ function classNames(...classes) {
 export default function ProductDetails() {
   const [selectedColor, setSelectedColor] = useState(product.colors[0])
   const [selectedSize, setSelectedSize] = useState(product.sizes[2])
+const navigate=useNavigate();
+const handleAddToCart=()=>{
+  navigate("/cart");
+}
 
   return (
     <div className="bg-white ">
@@ -214,7 +219,7 @@ export default function ProductDetails() {
                 </fieldset>
               </div>
 
-              <button
+              <button onClick={handleAddToCart}
                 type="submit"
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-pink-600 px-8 py-3 text-2xl font-semibold text-white hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
               >

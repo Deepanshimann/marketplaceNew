@@ -1,6 +1,7 @@
 "use client";
 import Avatar from "@mui/material/Avatar";
 import { Fragment, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Dialog,
   DialogBackdrop,
@@ -163,13 +164,14 @@ const navigation = {
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const navigate=useNavigate();
   // Handle user clicking the avatar
   const handleUserClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   // Close the user menu
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (event) => {
     setAnchorEl(null);
   };
 
@@ -177,6 +179,21 @@ export default function Navbar() {
   const handleOpen = () => {
     console.log("Handle open action");
   };
+
+  const handleCategoryClick = (category, section, item, close) => {
+    console.log("Category:", category);
+    console.log("Section:", section);
+    console.log("Item:", item);
+    if (category && section && item) {
+      navigate(`/${category.id}/${section.id}/${item.id}`);
+    } else {
+      console.error("Invalid parameters for navigation");
+    }
+    close();
+  };
+  
+ 
+
   return (
     <div className="bg-white pb-10">
   {/* Mobile menu */}
@@ -500,7 +517,6 @@ export default function Navbar() {
                     aria-controls={open ? "basic-menu" : undefined}
                     aria-haspopup="true"
                     aria-expanded={open ? "true" : undefined}
-                    // onClick={handleUserClick}
                     sx={{ bgcolor: deepPurple[500], color: 'white', cursor: 'pointer' }}
                   >
                     R   
@@ -515,7 +531,7 @@ export default function Navbar() {
                     }}
                                 >
                 <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>My Orders</MenuItem>
+                <MenuItem onClick={()=>navigate("/account/order")}>My Orders</MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>Logout</MenuItem>
             </Menu>
             </div>
