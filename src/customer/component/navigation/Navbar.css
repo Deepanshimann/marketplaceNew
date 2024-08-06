@@ -1,36 +1,129 @@
-.link-container {
-    display: flex;
-    align-items: center; /* Ensures vertical alignment is centered */
-    justify-content: flex-end; /* Aligns the content to the right */
-    flex-grow: 1; /* Allows the container to take up remaining space */
-  }
-  
-  .search, .cart, .avatar, .sign-in {
-    display: flex;
-    margin-left: 1rem; /* Adds spacing between items */
-  }
-  
-  
-  
+/* Navbar.css */
 
-  .sign-in Button{
-    font-weight: 800;
-    font-size: x-large;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: gilroy;
+  color: black;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+nav {
+  position: fixed;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  height: 12vh;
+  padding: 2vw 4vw;
+  justify-content: space-between;
+  z-index: 10;
+  background-color: #F3F4F6;
+}
+
+nav h1 {
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 2.25rem /* 36px */;
+  /* font-family: 'Gilroy', sans-serif; */
+}
+
+.nav-part2 {
+  display: flex;
+  gap: 3.2vw;
+  align-items: flex-start;
+  padding: 1vh 0;
+  position: relative;
+  z-index: 10;
+
+}
+
+.nav-part2 h4 {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+  cursor: pointer;
+}
+
+.nav-part2 h5 {
+  margin-bottom: 0.7vw;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+  cursor: pointer;
+  color: #111;
+  transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.nav-part2 h5 span {
+  font-size: 1.1rem; 
+  font-weight: 400;
+  display: inline-block;
+}
+#books{
+  margin-left: 1px;
+}
+.nav-bottom {
+  width: 79%;
+  height: 0vh;
+  position: absolute;
+  top: 100%;
+  z-index: 9;
+  background-color: #F3F4F6;
+  border-bottom: 1px solid #111;
+  transition: height 0.3s;
+}
+
+nav button {
+  background-color: #2DD4BF;
+  display: flex;
+  align-items: center;
+  font-size: 1.1vw;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+}
+
+nav button svg {
+  height: 0.85vw;
+  margin-left: 1.6vw;
+}
+
+/* Ensure categories are visible when they are active */
+.nav-elem.active h5 {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-elem.active ~ .nav-bottom {
+  height: 21vh;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    height: auto;
   }
-  
-  /* Additional styles to ensure proper sizing and interactivity */
-  .search-icon, .cart-icon {
-    width: 30px; /* Adjust size as needed */
-    height: 30px; /* Adjust size as needed */
-    background-color: aqua;
+  .nav-part2 {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  /* Utility classes for buttons and icons */
-  .button-text {
-    color: white; /* Ensures text is visible on blue background */
+  nav h1 {
+    margin-bottom: 1rem;
   }
-  
-  .nav-logo img {
-    height: 50px; /* Adjust logo size */
+  nav button {
+    margin-top: 1rem;
   }
-  
+}

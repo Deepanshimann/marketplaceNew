@@ -1,0 +1,38 @@
+/* Custom CSS for the FrontPage component */
+
+.portfolio-container {
+    background: linear-gradient(135deg, #1f2937, #2d3748);
+}
+
+.portfolio-card img {
+    height: auto;
+    max-width: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem; /* Rounded corners for the images */
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.left {
+    width: 50%;
+    padding: 1rem;
+}
+
+.right {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.portfolio-card {
+    background-color: #1f2937; /* Background color for the card */
+    /* padding: 0.5rem; */
+    border-radius: 0.5rem;
+    margin-top: 5.5rem; /* Rounded corners for the card */
+}

@@ -9,14 +9,18 @@ import Footer from '../customer/component/Footer/Footer';
 import Checkout from '../customer/component/Checkout/Checkout';
 import OrderDetails from '../customer/component/Order/OrderDetails';
 import Orderpage from '../customer/component/Order/Orderpage';
+import FrontPage from '../customer/component/front-page/FrontPage';
 
 const CustomerRoute = () => {
   return (
   <div>
       <div>
         <Navbar />
+        <FrontPage/>
       </div>
       <Routes>
+      <Route path='/login' element={<Homepage />}></Route>
+      <Route path='/register' element={<Homepage />}></Route>
         <Route path='/' element={<Homepage />}></Route>
         <Route path='/cart' element={<Cart />}></Route>
         <Route path='/:levelOne/:levelTwo/:levelThree' element={<Product />} />
