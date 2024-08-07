@@ -1,5 +1,5 @@
 import { FaGithub, FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
-
+import './Footer.css'
 const Footer = () => {
     const Year = new Date().getFullYear();
 
@@ -17,7 +17,8 @@ const Footer = () => {
                 <div className="grid lg:grid-cols-4 sm:grid-cols-1 gap-20">
                     <div className="flex flex-col gap-5">
                         <h2 className="heading text-3xl mt-20 font-bold text-yellow-200">About Us</h2>
-                        <p className="font-sans my-2 text-white text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, deleniti dolores vel ipsa reiciendis corporis similique dolor earum aut itaque.</p>
+                        <p className="font-sans my-2 text-white text-xl">Discover the story behind Vintage Store, how it was created and our commitment to sustainability and community.</p>
+                        <a  href="/about-us" className="read-button" >Read More</a>
                     </div>
 
                     <div className="container flex flex-col gap-5">
@@ -46,8 +47,8 @@ const Footer = () => {
                     <div className="icon flex flex-col gap-7">
                         <h2 className="heading text-3xl mt-20 font-bold text-yellow-200">Connect With Us</h2>
                         <div className="flex space-x-4">
-                            <a className="text-3xl  transform hover:scale-150 transition-all duration-150 ease-in-out" href="#">
-                                <FaGithub  />
+                            <a className="icon text-3xl  transform hover:scale-150 transition-all duration-150 ease-in-out" href="#">
+                                <FaGithub />
                             </a>
                             <a className="icon text-3xl  transform hover:scale-150 transition-all duration-150 ease-in-out" href="#">
                                 <FaLinkedinIn  />

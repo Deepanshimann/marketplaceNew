@@ -71,22 +71,24 @@ nav h1 {
   margin-left: 1px;
 }
 .nav-bottom {
-  width: 79%;
+  width: 59%;
   height: 0vh;
   position: absolute;
   top: 100%;
   z-index: 9;
   background-color: #F3F4F6;
-  border-bottom: 1px solid #111;
+  box-shadow: 0 10px 10px -5px rgba(12, 12, 12, 0.5), 10px 0 0px -5px rgba(12, 12, 12, 0.5); /* Blurry shadow to bottom and right */
   transition: height 0.3s;
+  margin-left: 21rem;
 }
 
 nav button {
   background-color: #2DD4BF;
   display: flex;
   align-items: center;
+  font-family: 'Gilroy', sans-serif;
   font-size: 1.1vw;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   padding: 10px 14px;
   border-radius: 50px;
@@ -98,6 +100,9 @@ nav button svg {
   height: 0.85vw;
   margin-left: 1.6vw;
 }
+nav button:hover{
+  background-color: #26c2a8;
+}
 
 /* Ensure categories are visible when they are active */
 .nav-elem.active h5 {
@@ -107,7 +112,7 @@ nav button svg {
 }
 
 .nav-elem.active ~ .nav-bottom {
-  height: 21vh;
+  height: 20vh;
 }
 
 /* Media Queries for Responsiveness */
@@ -127,3 +132,9 @@ nav button svg {
     margin-top: 1rem;
   }
 }
+.navbar {
+  position: relative;
+}
+
+
+

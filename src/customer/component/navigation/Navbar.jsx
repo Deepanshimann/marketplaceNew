@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Avatar, Menu, MenuItem, Button } from '@mui/material';
-import { deepPurple } from '@mui/material/colors';
-import { getUser } from '../../../State/Auth/Action';
+import { getUser, logout } from '../../../State/Auth/Action';
 import PopUpModal from '../../SignInUp/PopUpModal';
 import './Navbar.css';
 import useNavAnimation from './useNavAnimation';
@@ -20,29 +18,61 @@ const navigation = {
 
 export default function Navbar() {
   const [openAuthModal, setOpenAuthModal] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [modalType, setModalType] = useState('login');
+  const [setAnchorEl] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   const auth = useSelector(store => store.auth);
   const jwt = localStorage.getItem("jwt");
 
-  const handleUserClick = (event) => setAnchorEl(event.currentTarget);
   const handleCloseUserMenu = () => setAnchorEl(null);
-  const handleOpenAuthModal = () => setOpenAuthModal(true);
-  const handleCloseAuthModal = () => setOpenAuthModal(false);
+  const handleOpenAuthModal = (type) => {
+    setModalType(type);
+    setOpenAuthModal(true);
+
+
+    if (type === 'login') {
+      navigate('/loginform');
+    } else {
+      navigate('/registerform');
+    }
+  };
+  const handleCloseAuthModal = () => {
+    setOpenAuthModal(false);
+    navigate('/');
+  };
 
   useEffect(() => {
-    if (jwt) {
-      dispatch(getUser());
+    if (jwt && !auth.user) {
+      dispatch(getUser(jwt));
     }
-  }, [jwt, auth.jwt, dispatch]);
+  }, [jwt, auth.user, dispatch]);
 
+
+  // useEffect(() => {
+  //   if (auth.user) {
+  //     handleCloseAuthModal();
+  //     navigate('/profile');
+  //   }
+  // }, [auth.user, handleCloseAuthModal, navigate]);
   useEffect(() => {
     if (auth.user) {
       handleCloseAuthModal();
+      if (location.pathname === '/loginform' || location.pathname === '/registerform') {
+        navigate('/profile');
+      }
     }
-  }, [auth.user]);
+  }, [auth.user, handleCloseAuthModal, navigate, location.pathname]);
+  
+
+
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem("jwt");
+    navigate('/');
+  };
 
   const { toggleCategory } = useNavAnimation(activeCategory, setActiveCategory);
 
@@ -52,17 +82,13 @@ export default function Navbar() {
       setActiveCategory(null);
     } else {
       toggleCategory(category);
+      setActiveCategory(category); // Ensure activeCategory state is updated
     }
   };
-
+  
   const handleItemClick = (category, item) => {
     navigate(`/${category}/${item}`);
-    setActiveCategory(null);
-  };
-
-  const handleProfileClick = () => {
-    navigate("/account/order");
-    handleCloseUserMenu();
+    setActiveCategory(null); // Close category menu after clicking an item
   };
 
   return (
@@ -80,15 +106,21 @@ export default function Navbar() {
           ))}
           <div className="nav-elem">
             <h4 onClick={() => toggleCategory('myprofile')}>My Profile</h4>
-            <h5><span onClick={handleOpenAuthModal}>Profile</span></h5>
-            <h5><span onClick={handleProfileClick}>My Orders</span></h5>
-            <h5><span onClick={handleCloseUserMenu}>Logout</span></h5>
+            <h5><span onClick={() => handleOpenAuthModal('register')}>Help</span></h5>
+            <h5><span onClick={() => navigate('/account/order')}>My Orders</span></h5>
+            <h5><span onClick={handleLogout}>Logout</span></h5>
           </div>
         </div>
-        <button onClick={handleOpenAuthModal}>Sign In</button>
+        {auth.user ? (
+          <button onClick={() => navigate('/profile')}>
+            {auth.user.firstName}
+          </button>
+        ) : (
+          <button onClick={() => handleOpenAuthModal('login')}>Sign In</button>
+        )}
         <div className={`nav-bottom ${activeCategory ? 'active' : ''}`}></div>
       </nav>
-      <PopUpModal handleClose={handleCloseAuthModal} open={openAuthModal} />
+      <PopUpModal handleClose={handleCloseAuthModal} open={openAuthModal} type={modalType} />
     </div>
   );
 }

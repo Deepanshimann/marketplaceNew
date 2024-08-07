@@ -11,7 +11,7 @@ import {
   GET_USER_FAILURE,
   LOGOUT
 } from './ActionType';
-import  API_BASE_URL  from '../../config/apiConfig';
+import {API_BASE_URL}  from '../../config/apiConfig';
 
 // Register action creators
 const registerRequest = () => ({ type: REGISTER_REQUEST });
@@ -24,7 +24,7 @@ export const register = userData => async dispatch => {
     const response=await axios.post(`${API_BASE_URL}/auth/signup`, userData);
     const user = response.data;
     if(user.jwt) localStorage.setItem("jwt",user.jwt)
-    console.log("registerr :",user)
+    console.log("register :",user)
     dispatch(registerSuccess(user));
   } catch (error) {
     dispatch(registerFailure(error.message));
@@ -39,7 +39,7 @@ const loginFailure = error => ({ type: LOGIN_FAILURE, payload: error });
 export const login = userData => async dispatch => {
   dispatch(loginRequest());
   try {
-    const response = await axios.post(`${API_BASE_URL}/auth/signin`, userData);
+    const response = await axios.post(`${API_BASE_URL}/auth/login`, userData);
     const user = response.data;
     if(user.jwt) localStorage.setItem("jwt",user.jwt)
     console.log("login ",user)
@@ -66,12 +66,12 @@ export const getUser = (token) => {
       console.log("req User ",user)
     } catch (error) {
       const errorMessage = error.message;
-      dispatch({ type: GET_USER_FAILURE, payload: errorMessage });
+      dispatch({ type: GET_USER_FAILURE, payload:errorMessage });
     }
   };
 };
 
-export const logout = (token) => {
+export const logout = () => {
     return async (dispatch) => {
       dispatch({ type: LOGOUT });
       localStorage.clear();

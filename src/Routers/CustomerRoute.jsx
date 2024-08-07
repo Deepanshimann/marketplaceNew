@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import {  Route, Routes } from 'react-router-dom';
 import Homepage from '../customer/component/pages/Homepage/Homepage';
 import Cart from '../customer/component/Cart/Cart';
@@ -19,8 +19,6 @@ const CustomerRoute = () => {
         <FrontPage/>
       </div>
       <Routes>
-      <Route path='/login' element={<Homepage />}></Route>
-      <Route path='/register' element={<Homepage />}></Route>
         <Route path='/' element={<Homepage />}></Route>
         <Route path='/cart' element={<Cart />}></Route>
         <Route path='/:levelOne/:levelTwo/:levelThree' element={<Product />} />

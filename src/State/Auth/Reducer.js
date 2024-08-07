@@ -8,40 +8,40 @@ import {
     GET_USER_REQUEST,
     GET_USER_SUCCESS,
     GET_USER_FAILURE,
-    LOGOUT
-} from './ActionType';
-
-const initialState = {
-    isLoading: false,
-    jwt: null,
+    LOGOUT,
+  } from "./ActionType";
+  
+  const initialState = {
     user: null,
-    error: null
-};
-
- const authReducer = (state = initialState, action) => {
+    isLoading: false,
+    error: null,
+  };
+  
+  const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case REGISTER_REQUEST:
-        case LOGIN_REQUEST:
-        case GET_USER_REQUEST:
-            return { ...state, isLoading: true, error: null };
-
-        case REGISTER_SUCCESS:
-        case LOGIN_SUCCESS:
-            return { ...state, isLoading: false, error: null, jwt: action.payload };
-
-        case GET_USER_SUCCESS:
-            return { ...state, isLoading: false, error: null, user: action.payload };
-
-        case REGISTER_FAILURE:
-        case LOGIN_FAILURE:
-        case GET_USER_FAILURE:
-            return { ...state, isLoading: false, error: action.payload };
-
+      case REGISTER_REQUEST:
+      case LOGIN_REQUEST:
+        return { ...state, isLoading: true, error: null };
+      case REGISTER_SUCCESS:
+        return { ...state, isLoading: false };
+      case REGISTER_FAILURE:
+      case LOGIN_FAILURE:
+        return { ...state, isLoading: false, error: action.payload };
+      case LOGIN_SUCCESS:
+        return { ...state, isLoading: false };
+      case GET_USER_REQUEST:
+        return { ...state, isLoading: true, error: null };
+      case GET_USER_SUCCESS:
+        return { ...state, isLoading: false, user: action.payload };
+      case GET_USER_FAILURE:
+        return { ...state, isLoading: false, error: action.payload };
         case LOGOUT:
-            return { ...initialState };
-
-        default:
-            return state;
+          localStorage.removeItem("jwt");
+          return { ...state, jwt: null, user: null };
+      default:
+        return state;
     }
-};
-export default authReducer;
+  };
+  
+  export default authReducer;
+  
