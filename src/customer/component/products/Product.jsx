@@ -1,7 +1,7 @@
 
 'use client'
 
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import {
   Dialog,
   DialogBackdrop,
@@ -23,11 +23,13 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import MenKurta from "../../../Data/MenKurta"
 import ProductCard from "./ProductCard"
+import { useSelector } from 'react-redux';
 
 import { filters, singleFilter, sortOptions } from "./FilterData";
 import BlurOnIcon from '@mui/icons-material/BlurOn';
-import { useLocation, useNavigate } from 'react-router-dom';
-
+import { useLocation, useNavigate,useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux'
+import { findProducts } from '../../../State/CustomerProduct/Action'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -37,6 +39,18 @@ export default function Product() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 const location=useLocation();
 const navigate=useNavigate();
+const params = useParams();
+const decodedQueryString=decodeURIComponent(location.search);
+const searchParams=new URLSearchParams(decodedQueryString);
+const colorValue = searchParams.get("color")
+const sizeValue = searchParams.get("size")
+const priceValue = searchParams.get("price")
+const discount = searchParams.get("discount")
+const sortValue = searchParams.get("sort")
+const pageNumber = searchParams.get("page") || 1;
+const stock = searchParams.get("stock")
+const dispatch=useDispatch();
+const {product}=useSelector(store=>store)
 
 //Function to handle/change routes when clicked on checkbox 
 const handleFilter = (value, sectionId) => {
@@ -65,6 +79,34 @@ const handleRadioFilterChange = (e, sectionId) => {
   const query = searchParams.toString();
   navigate(`?${query}`);
 };
+
+
+useEffect(() => {
+  const [minPrice, maxPrice] = priceValue == null ? [0, 0] : priceValue.split("-").map(Number);
+
+  const data = {
+    category: params.levelThree,
+    colors: colorValue || [],
+    sizes: sizeValue || [],
+    minPrice,
+    maxPrice,
+    minDiscount: discount || 0,
+    sort: sortValue || "price_low",
+    pageNumber: pageNumber - 1,
+    pageSize: 10,
+    stock: stock
+}
+dispatch(findProducts(data))
+}, [
+  params.levelThree,
+  colorValue,
+  sizeValue,
+  priceValue,
+  discount,
+  sortValue,
+  pageNumber,
+  stock,
+  dispatch])
 
 
   return (
@@ -400,7 +442,9 @@ const handleRadioFilterChange = (e, sectionId) => {
               {/* Product grid */}
               <div className="lg:col-span-3 w-full">
   <div className="flex flex-wrap justify-center">
-    {MenKurta.map((item) => <ProductCard product={item} key={item.id} {...item} />)}
+    {product.products && product.products?.content.map((item)=>(
+<ProductCard product={item}/>
+    ))}
   </div>
 </div>
 

@@ -2,11 +2,12 @@ import React from 'react';
 import Firstpage from '../../Carousel/Firstpage';
 import SecondSection from '../../Second-section/SecondSection';
 import MenKurta from "../../../../Data/MenKurta";
-
+import FrontPage from '../../front-page/FrontPage'
 
 const Homepage = () => {
     return (
-        <div className="min-h-screen bg-gray-100 p-5">
+        <div className="min-h-screen bg-gray-100 ">
+            <FrontPage/>
             <Firstpage className="z-10"/>
             <div className='space-y-10 py-20 flex flex-col justify-center px-5 '>
             <SecondSection data={MenKurta} sectionName={"Men's Kurta"}/>

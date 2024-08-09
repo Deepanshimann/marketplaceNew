@@ -1,5 +1,5 @@
-// import React from 'react';
-import {  Route, Routes } from 'react-router-dom';
+import React from 'react';
+import { Route, Routes,useLocation } from 'react-router-dom';
 import Homepage from '../customer/component/pages/Homepage/Homepage';
 import Cart from '../customer/component/Cart/Cart';
 import Navbar from '../customer/component/navigation/Navbar';
@@ -10,27 +10,35 @@ import Checkout from '../customer/component/Checkout/Checkout';
 import OrderDetails from '../customer/component/Order/OrderDetails';
 import Orderpage from '../customer/component/Order/Orderpage';
 import FrontPage from '../customer/component/front-page/FrontPage';
+ import FaqSection from '../customer/component/FAQ/Faq'; // Corrected import statement
+import Helpcenter from '../customer/component/FAQ/HelpCenter/Helpcenter';
+import Lastsection from '../customer/component/lastSection/Lastsection';
+import ContactUs from '../customer/component/FAQ/HelpCenter/contactUs';
 
 const CustomerRoute = () => {
+  const location = useLocation();
   return (
-  <div>
+    <div>
       <div>
         <Navbar />
-        <FrontPage/>
       </div>
       <Routes>
         <Route path='/' element={<Homepage />}></Route>
-        <Route path='/cart' element={<Cart />}></Route>
-        <Route path='/:levelOne/:levelTwo/:levelThree' element={<Product />} />
+        <Route path='/:category' element={<Cart />}></Route>
+        <Route path='/:category/:item' element={<Product />} />
         <Route path='/product/:productId' element={<ProductDetails />} />
-        <Route path='/checkout' element={<Checkout/>} />
-        <Route path='/account/order' element={<Orderpage/>} />
-        <Route path='/account/order/:orderId' element={<OrderDetails/>} />
+        <Route path='/checkout' element={<Checkout />} />
+        <Route path='/account/order' element={<Orderpage />} />
+        <Route path='/account/order/:orderId' element={<OrderDetails />} />
+        <Route path='/help-center' element={<Helpcenter />}></Route>
+        <Route path='/contact-us' element={<ContactUs />}></Route>
       </Routes>
       <div>
+      {location.pathname !== '/help-center' && <FaqSection />}
+      <Lastsection/>
         <Footer />
       </div>
-      </div>
+    </div>
   );
 }
 

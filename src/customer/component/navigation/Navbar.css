@@ -1,5 +1,6 @@
-/* Navbar.css */
+/* CSS for Navbar */
 
+/* Reset and Basic Styles */
 * {
   margin: 0;
   padding: 0;
@@ -16,72 +17,94 @@ html, body {
 nav {
   position: fixed;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  height: 12vh;
-  padding: 2vw 4vw;
+  height: 5.5rem;
+  padding: 2vw 2vw;
   justify-content: space-between;
   z-index: 10;
   background-color: #F3F4F6;
+  /* margin-bottom: 1rem; */
+
 }
 
 nav h1 {
   font-size: 2rem;
   font-weight: 900;
-  line-height: 2.25rem /* 36px */;
-  /* font-family: 'Gilroy', sans-serif; */
+  line-height: 2.25rem;
 }
 
 .nav-part2 {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 3.2vw;
-  align-items: flex-start;
-  padding: 1vh 0;
-  position: relative;
-  z-index: 10;
-
+  padding: 2vh 2vh;
+position: relative;
+  z-index: 20;
+  margin-right: 0.7vw;
+  flex-grow: 1;
 }
 
+/* Dropdown Styles */
+.nav-elem {
+  position: relative;
+
+}
+.nav-bottom {
+  width: 0;
+  height: 0;
+  transition: width 0.3s ease, height 0.3s ease;
+  background-color: #2DD4BF; /* or whatever the intended color is */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.nav-elem.active ~ .nav-bottom {
+  width: 100%; /* Or a specific width relative to the active element */
+  height: 4px; /* This will prevent it from adding unnecessary height */
+}
+
+.nav-elem .dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  padding: 0.5rem 1rem;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  min-width: 150px; /* Ensures the dropdown has a minimum width */
+}
 .nav-part2 h4 {
   font-size: 1.2rem;
   text-transform: uppercase;
   font-weight: 600;
-  margin-bottom: 1.2rem;
   cursor: pointer;
+
+}
+.nav-elem.active .dropdown {
+  display: block; /* Show dropdown when the parent is active */
 }
 
-.nav-part2 h5 {
-  margin-bottom: 0.7vw;
-  opacity: 0;
-  visibility: hidden;
-  overflow: hidden;
+.nav-elem h5 {
+  margin: 0;
+  padding: 0.5rem 0;
   cursor: pointer;
-  color: #111;
-  transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
-  padding: 5px;
-  border-radius: 5px;
+  font-size: 1.3rem;
+  font-family: 'Gilroy', sans-serif;
+  color: #333;
+  white-space: nowrap; /* Prevent text from wrapping */
+
 }
 
-.nav-part2 h5 span {
-  font-size: 1.1rem; 
-  font-weight: 400;
-  display: inline-block;
-}
-#books{
-  margin-left: 1px;
-}
-.nav-bottom {
-  width: 59%;
-  height: 0vh;
-  position: absolute;
-  top: 100%;
-  z-index: 9;
-  background-color: #F3F4F6;
-  box-shadow: 0 10px 10px -5px rgba(12, 12, 12, 0.5), 10px 0 0px -5px rgba(12, 12, 12, 0.5); /* Blurry shadow to bottom and right */
-  transition: height 0.3s;
-  margin-left: 21rem;
+.nav-elem h5:hover {
+  background-color: #f0f0f0;
 }
 
+/* Button and Other Nav Elements*/
 nav button {
   background-color: #2DD4BF;
   display: flex;
@@ -94,47 +117,99 @@ nav button {
   border-radius: 50px;
   border: none;
   cursor: pointer;
+  transition: background-color 0.3s;
+ 
 }
 
-nav button svg {
-  height: 0.85vw;
-  margin-left: 1.6vw;
-}
-nav button:hover{
+nav button:hover {
   background-color: #26c2a8;
-}
-
-/* Ensure categories are visible when they are active */
-.nav-elem.active h5 {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.nav-elem.active ~ .nav-bottom {
-  height: 20vh;
-}
+} 
 
 /* Media Queries for Responsiveness */
+@media (max-width: 1200px) {
+  .nav-part2 {
+    flex-direction: row;
+    gap: 2vw; /* Reduce the gap between items */
+    align-items: center;
+    /* height: auto; */
+    margin-right: 0.5vw;
+
+  }
+
+  nav button {
+    font-size: 1rem; /* Adjust font size */
+  }
+}
+
+@media (max-width: 1009px) {
+  .navbar nav {
+    justify-content: space-between;
+  }
+
+  .nav-part2 h4 {
+    font-size: 1rem; /* Further reduce the font size */
+  }
+
+  .nav-part2 h5 {
+    font-size: 0.85rem; /* Further reduce the font size */
+  }
+
+  .cart-icon, .auth-button {
+    display: none; /* Hide cart and button */
+  }
+}
+
+
+@media (max-width: 912px) {
+  .navbar nav {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    position: static;
+  }
+
+  .navbar h1 {
+    font-size: 1.5rem; /* Adjust the font size */
+  }
+
+  /* .nav-part2 {
+    display: none; /* Hide the navigation items 
+  } */
+
+  .hamburger-menu {
+    display: block; /* Show hamburger menu */
+  }
+}
+
+
 @media (max-width: 768px) {
   nav {
     flex-direction: column;
+    align-items: center;
     height: auto;
+    position: static;
   }
+
   .nav-part2 {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
+  /* .nav-part2 {
+    display: flex;
+    gap: 3.2vw;
+    align-items: flex-start;
+    padding: 1vh 0;
+    position: relative;
+    z-index: 10;
+  } */
+
   nav h1 {
     margin-bottom: 1rem;
   }
+
   nav button {
     margin-top: 1rem;
+    font-size: 0.8rem;
   }
 }
-.navbar {
-  position: relative;
-}
-
-
 

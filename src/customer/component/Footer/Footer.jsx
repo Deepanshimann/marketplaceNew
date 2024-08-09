@@ -14,14 +14,13 @@ const Footer = () => {
             </div>
 
             <div className="container mx-auto pt-20 pb-5 px-5 mt-20">
-                <div className="grid lg:grid-cols-4 sm:grid-cols-1 gap-20">
+                <div className="grid lg:grid-cols-4 sm:grid-cols-1 gap-20 sm:gap-5">
                     <div className="flex flex-col gap-5">
-                        <h2 className="heading text-3xl mt-20 font-bold text-yellow-200">About Us</h2>
-                        <p className="font-sans my-2 text-white text-xl">Discover the story behind Vintage Store, how it was created and our commitment to sustainability and community.</p>
-                        <a  href="/about-us" className="read-button" >Read More</a>
+                        <h2 className="heading text-3xl mt-20  font-bold text-yellow-200">About Us</h2>
+                        <p className="font-sans mr-2 pr-2 my-2 text-white text-xl">Discover the story behind Vintage Store, how it was created and our commitment to sustainability and community.</p>
                     </div>
 
-                    <div className="container flex flex-col gap-5">
+                    <div className=" container flex flex-col gap-5">
                         <h2 className="heading text-3xl font-bold mt-20 text-yellow-200">Categories</h2>
                         <ul>
                             <li className="my-2 text-lg  text-white"><a className="font-sans" href="#">Electronics</a></li>
@@ -34,20 +33,20 @@ const Footer = () => {
                     </div>
 
                     <div className="container flex flex-col gap-5">
-                        <h2 className="heading  text-3xl font-bold mt-20 text-yellow-200">Customer Support</h2>
+                        <h2 className=" heading  text-3xl font-bold mt-20 text-yellow-200">Customer Support</h2>
                         <ul>
-                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="#">Contact Us</a></li>
-                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="#">FAQ</a></li>
-                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="#">Return Policy</a></li>
-                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="#">Help Center</a></li>
-                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="#">Shipping Information</a></li>
+                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="/contact-us">Contact Us</a></li>
+                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="/help-center">FAQ</a></li>
+                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="/help-center">Return Policy</a></li>
+                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="/help-center">Help Center</a></li>
+                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="/order">Shipping Information</a></li>
                         </ul>
                     </div>
 
                     <div className="icon flex flex-col gap-7">
-                        <h2 className="heading text-3xl mt-20 font-bold text-yellow-200">Connect With Us</h2>
+                        <h2 className=" heading text-3xl mt-20 font-bold text-yellow-200">Connect With Us</h2>
                         <div className="flex space-x-4">
-                            <a className="icon text-3xl  transform hover:scale-150 transition-all duration-150 ease-in-out" href="#">
+                            <a className="icon text-3xl  transform hover:scale-150 transition-all duration-150 ease-in-out" href="#" style={{ color: "#FFFFFF" }}>
                                 <FaGithub />
                             </a>
                             <a className="icon text-3xl  transform hover:scale-150 transition-all duration-150 ease-in-out" href="#">
