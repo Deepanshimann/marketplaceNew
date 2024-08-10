@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './Faq.css'
+import { useNavigate } from 'react-router-dom';
+
 const faqs = [
   {
     question: "How does Vintage Store work?",
@@ -29,13 +31,13 @@ const faqs = [
 
 const FaqSection = () => {
   const [activeIndex, setActiveIndex] = useState(null);
-
+  const navigate=useNavigate();
   const handleToggle = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
   return (
-    <div className="w-full px-4 py-8 bg-yellow-100">
+    <div className="w-full px-4 py-44 bg-yellow-100">
       <h2 className="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
       <div className="max-w-3xl mx-auto">
         {faqs.map((faq, index) => (
@@ -55,7 +57,7 @@ const FaqSection = () => {
         ))}
         <div className='faq-button-con'>
         <h3 className='text-2xl font-bold text-center mb-8'>Have a question? Well, we’ve got some answers.</h3>
-        <a href="/help-center" className="inline-block bg-teal-400 text-black font-bold  text-xl py-2 px-4 rounded-full no-underline hover:bg-teal-500 transition ml-4">Go to Help Center</a>
+        <button onClick={()=>navigate('/help-center')} className="inline-block bg-teal-400 text-black font-bold  text-xl py-2 px-4 rounded-full no-underline hover:bg-teal-500 transition ml-4">Go to Help Center</button>
         </div>
       </div>
     </div>

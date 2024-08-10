@@ -36,13 +36,14 @@ export default function LoginUserForm() {
     }
     console.log("login user",userData);
   
-    dispatch(login(userData));
+    dispatch(login({userData,navigate}));
 
   };
 
   return (
     <React.Fragment>
       <form className="w-full" onSubmit={handleSubmit}>
+        <h1 className="text-3xl mb-6 font-bold text-[#212B3A]">LogIn Here!</h1>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <TextField
@@ -67,22 +68,22 @@ export default function LoginUserForm() {
           </Grid>
 
           <Grid item xs={12}>
-            <Button
-              className="bg-[#9155FD] w-full"
+            <button
+              className="inline-block bg-teal-400 text-black font-bold  text-xl py-2 px-4 rounded-full no-underline hover:bg-teal-500 transition w-full"
               type="submit"
               variant="contained"
               size="large"
               sx={{padding:".8rem 0"}}
             >
               Login
-            </Button>
+            </button>
           </Grid>
         </Grid>
       </form>
       <div className="flex justify-center flex-col items-center">
          <div className="py-3 flex items-center">
-        <p className="m-0 p-0">do not have account ?</p>
-        <Button onClick={()=> navigate("/registerform")} className="ml-5" size="small">
+        <p className="m-0 p-0 text-lg">don't have an account ?</p>
+        <Button  onClick={()=> navigate("/registerform")} className="ml-5" size="large">
           Register
         </Button>
         </div>

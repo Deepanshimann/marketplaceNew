@@ -10,7 +10,7 @@ const orderStatus = [
   
 const Orderpage = () => {
   return (
-    <div className='px:5 lg:px-20'>
+    <div className='px:5 py-40 lg:px-20'>
     <Grid container sx={{ justifyContent: "space-between" }}>
   <Grid item xs={2.5}>
     <div className="h-auto shadow-lg bg-white p-5 sticky top-5">

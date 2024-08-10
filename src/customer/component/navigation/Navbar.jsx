@@ -27,6 +27,7 @@ export default function Navbar() {
   const location = useLocation();
   const dispatch = useDispatch();
   const auth = useSelector(store => store.auth);
+ console.log("abc....."+auth.user);
   const jwt = localStorage.getItem("jwt");
 
   const handleCloseUserMenu = () => setAnchorEl(null);
@@ -40,12 +41,11 @@ export default function Navbar() {
     } else {
       navigate('/registerform');
     }
-  }, [navigate]);
+  }, []);
 
   const handleCloseAuthModal = useCallback(() => {
     setOpenAuthModal(false);
-    navigate('/');
-  }, [navigate]);
+  },[]);
 
   useEffect(() => {
     if (jwt && !auth.user) {
@@ -60,7 +60,7 @@ export default function Navbar() {
         navigate('/profile');
       }
     }
-  }, [auth.user, handleCloseAuthModal, navigate, location.pathname]);
+  }, [auth.user, handleCloseAuthModal]);
 
   const handleLogout = useCallback(() => {
     dispatch(logout());
@@ -132,7 +132,8 @@ export default function Navbar() {
                 {auth.user ? (
                   <>
                     <h5><span onClick={() => { navigate('/help-center'); closeDropdown(); }}>Help</span></h5>
-                    <h5><span onClick={() => { navigate('/profile/account/orders'); closeDropdown(); }}>My Orders</span></h5>
+                    <h5><span onClick={() => { navigate('/account/orders'); closeDropdown(); }}>My Orders</span></h5>
+                    <h5><span onClick={() => { navigate('/contact-us'); closeDropdown(); }}>Contact Us</span></h5>
                     <h5><span onClick={handleLogout}>Logout</span></h5>
                   </>
                 ) : (

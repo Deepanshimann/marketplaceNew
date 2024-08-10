@@ -50,7 +50,8 @@ const sortValue = searchParams.get("sort")
 const pageNumber = searchParams.get("page") || 1;
 const stock = searchParams.get("stock")
 const dispatch=useDispatch();
-const {product}=useSelector(store=>store)
+const product=useSelector(store=>store)
+console.log("..fetching..",product);
 
 //Function to handle/change routes when clicked on checkbox 
 const handleFilter = (value, sectionId) => {
@@ -85,7 +86,7 @@ useEffect(() => {
   const [minPrice, maxPrice] = priceValue == null ? [0, 0] : priceValue.split("-").map(Number);
 
   const data = {
-    category: params.levelThree,
+    category: params.levelThree || '66b5222a84c065e6b45d9582',
     colors: colorValue || [],
     sizes: sizeValue || [],
     minPrice,
@@ -442,9 +443,9 @@ dispatch(findProducts(data))
               {/* Product grid */}
               <div className="lg:col-span-3 w-full">
   <div className="flex flex-wrap justify-center">
-    {product.products && product.products?.content.map((item)=>(
+    {/* {product.products && product.products?.content.map((item)=>(
 <ProductCard product={item}/>
-    ))}
+    ))}  */}
   </div>
 </div>
 

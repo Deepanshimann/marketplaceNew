@@ -24,7 +24,7 @@ import {
     deleteProduct:null,
   };
   
-  const customerProductReducer = (state = initialState, action) => {
+  const  customerProductReducer = (state = initialState, action) => {
     switch (action.type) {
       case FIND_PRODUCTS_BY_CATEGORY_REQUEST:
         return { ...state, loading: true, error: null,products:[] };

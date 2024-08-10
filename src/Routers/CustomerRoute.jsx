@@ -14,9 +14,11 @@ import FrontPage from '../customer/component/front-page/FrontPage';
 import Helpcenter from '../customer/component/FAQ/HelpCenter/Helpcenter';
 import Lastsection from '../customer/component/lastSection/Lastsection';
 import ContactUs from '../customer/component/FAQ/HelpCenter/contactUs';
-
+import {useSelector } from 'react-redux';
 const CustomerRoute = () => {
   const location = useLocation();
+  const product=useSelector(store=>store)
+ console.log("..fetching product..",product);
   return (
     <div>
       <div>
@@ -28,7 +30,7 @@ const CustomerRoute = () => {
         <Route path='/:category/:item' element={<Product />} />
         <Route path='/product/:productId' element={<ProductDetails />} />
         <Route path='/checkout' element={<Checkout />} />
-        <Route path='/account/order' element={<Orderpage />} />
+        <Route path='/account/orders' element={<Orderpage />} />
         <Route path='/account/order/:orderId' element={<OrderDetails />} />
         <Route path='/help-center' element={<Helpcenter />}></Route>
         <Route path='/contact-us' element={<ContactUs />}></Route>

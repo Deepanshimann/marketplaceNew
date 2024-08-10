@@ -181,8 +181,6 @@ const Helpcenter = () => {
           <div className="text-center mt-20">
                 <h3 className='text-2xl font-bold text-center '>Click on button below to contact us.</h3>
   <a href="/contact-us" className="inline-block bg-teal-400 text-black font-bold text-xl py-2 px-4 rounded-full no-underline hover:bg-teal-500 transition mt-5 mb-20">Contact Us</a>
-  <h3 className='text-2xl font-bold text-center '>Click on button below to report some issue.</h3>
-  <a href="/report" className="inline-block bg-teal-400 text-black font-bold  text-xl py-2 px-4 rounded-full mt-5 no-underline hover:bg-teal-500 transition ml-4">Report</a>
 </div>
 
       </div>
