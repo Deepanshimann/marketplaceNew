@@ -11,7 +11,7 @@ const responsive = {
 const Firstpage = () => {
     const items = CarouselData.map((item, index) => (
         // Use a wrapper div to control the aspect ratio and size
-        <div key={index} className="max-w-screen-lg mx-auto overflow-hidden" style={{ height: '500px' }}>
+        <div key={index} className="max-w-screen-lg mx-auto overflow-hidden mt-36" style={{ height: '500px' }}>
             <img src={item.image} alt={`Slide ${index}`} className="w-full h-full object-cover"/>
         </div>
     ));

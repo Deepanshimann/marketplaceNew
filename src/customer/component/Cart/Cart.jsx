@@ -9,7 +9,7 @@ const handleCheckout=()=>{
   navigate("/checkout?step=2");
 }
   return (
-    <div className='lg:grid grid-cols-3 lg:px-16 p-5 relative'>
+    <div className='lg:grid grid-cols-3 lg:px-16 p-5 pt-28 '>
     <div className='col-span-2'>
       {[1,1,1,1].map((item)=><CartItems />)}
     </div>

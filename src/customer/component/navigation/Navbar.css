@@ -1,36 +1,215 @@
-.link-container {
-    display: flex;
-    align-items: center; /* Ensures vertical alignment is centered */
-    justify-content: flex-end; /* Aligns the content to the right */
-    flex-grow: 1; /* Allows the container to take up remaining space */
-  }
-  
-  .search, .cart, .avatar, .sign-in {
-    display: flex;
-    margin-left: 1rem; /* Adds spacing between items */
-  }
-  
-  
-  
+/* CSS for Navbar */
 
-  .sign-in Button{
-    font-weight: 800;
-    font-size: x-large;
+/* Reset and Basic Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: gilroy;
+  color: black;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+nav {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 5.5rem;
+  padding: 2vw 2vw;
+  justify-content: space-between;
+  z-index: 10;
+  background-color: #F3F4F6;
+  /* margin-bottom: 1rem; */
+
+}
+
+nav h1 {
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 2.25rem;
+}
+
+.nav-part2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3.2vw;
+  padding: 2vh 2vh;
+position: relative;
+  z-index: 20;
+  margin-right: 0.7vw;
+  flex-grow: 1;
+}
+
+/* Dropdown Styles */
+.nav-elem {
+  position: relative;
+
+}
+.nav-bottom {
+  width: 0;
+  height: 0;
+  transition: width 0.3s ease, height 0.3s ease;
+  background-color: #2DD4BF; /* or whatever the intended color is */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.nav-elem.active ~ .nav-bottom {
+  width: 100%; /* Or a specific width relative to the active element */
+  height: 4px; /* This will prevent it from adding unnecessary height */
+}
+
+.nav-elem .dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  padding: 0.5rem 1rem;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  min-width: 150px; /* Ensures the dropdown has a minimum width */
+}
+.nav-part2 h4 {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+
+}
+.nav-elem.active .dropdown {
+  display: block; /* Show dropdown when the parent is active */
+}
+
+.nav-elem h5 {
+  margin: 0;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  font-size: 1.3rem;
+  font-family: 'Gilroy', sans-serif;
+  color: #333;
+  white-space: nowrap; /* Prevent text from wrapping */
+
+}
+
+.nav-elem h5:hover {
+  background-color: #f0f0f0;
+}
+
+/* Button and Other Nav Elements*/
+nav button {
+  background-color: #2DD4BF;
+  display: flex;
+  align-items: center;
+  font-family: 'Gilroy', sans-serif;
+  font-size: 1.1vw;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+ 
+}
+
+nav button:hover {
+  background-color: #26c2a8;
+} 
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1200px) {
+  .nav-part2 {
+    flex-direction: row;
+    gap: 2vw; /* Reduce the gap between items */
+    align-items: center;
+    /* height: auto; */
+    margin-right: 0.5vw;
+
   }
-  
-  /* Additional styles to ensure proper sizing and interactivity */
-  .search-icon, .cart-icon {
-    width: 30px; /* Adjust size as needed */
-    height: 30px; /* Adjust size as needed */
-    background-color: aqua;
+
+  nav button {
+    font-size: 1rem; /* Adjust font size */
   }
-  
-  /* Utility classes for buttons and icons */
-  .button-text {
-    color: white; /* Ensures text is visible on blue background */
+}
+
+@media (max-width: 1009px) {
+  .navbar nav {
+    justify-content: space-between;
   }
-  
-  .nav-logo img {
-    height: 50px; /* Adjust logo size */
+
+  .nav-part2 h4 {
+    font-size: 1rem; /* Further reduce the font size */
   }
-  
+
+  .nav-part2 h5 {
+    font-size: 0.85rem; /* Further reduce the font size */
+  }
+
+  .cart-icon, .auth-button {
+    display: none; /* Hide cart and button */
+  }
+}
+
+
+@media (max-width: 912px) {
+  .navbar nav {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    position: static;
+  }
+
+  .navbar h1 {
+    font-size: 1.5rem; /* Adjust the font size */
+  }
+
+  /* .nav-part2 {
+    display: none; /* Hide the navigation items 
+  } */
+
+  .hamburger-menu {
+    display: block; /* Show hamburger menu */
+  }
+}
+
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    position: static;
+  }
+
+  .nav-part2 {
+    flex-direction: column;
+    align-items: center;
+  }
+  /* .nav-part2 {
+    display: flex;
+    gap: 3.2vw;
+    align-items: flex-start;
+    padding: 1vh 0;
+    position: relative;
+    z-index: 10;
+  } */
+
+  nav h1 {
+    margin-bottom: 1rem;
+  }
+
+  nav button {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+  }
+}
+

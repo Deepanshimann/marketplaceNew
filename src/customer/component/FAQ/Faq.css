@@ -1,0 +1,19 @@
+/* .read-button {
+  background-color: #2DD4BF;
+  /* align-items: center; 
+  font-size: 0.8rem;
+  font-weight: 800;
+  font-family: 'Gilroy', sans-serif;
+  text-transform: uppercase;
+  padding: 10px ;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  width: 11rem;
+  } */
+  .faq-button-con{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
