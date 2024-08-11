@@ -1,8 +1,13 @@
 import React from "react";
 import AddressCard from "../AddressCard";
 import { Button, Grid,Box ,TextField} from "@mui/material";
-
+import { useDispatch} from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
+import {createOrder} from '../../../State/Order/Action'
 const DeliveryAddress = () => {
+ 
+const dispatch=useDispatch();
+const navigate=useNavigate();
 const handleSubmit=(e)=>{
     e.preventDefault();
     const data=new FormData(e.currentTarget);
@@ -17,6 +22,10 @@ const handleSubmit=(e)=>{
         email: data.get("email")
       }
       console.log("address",address)
+const orderData={address,navigate}
+  dispatch(createOrder(orderData)) 
+      
+
 }
 
   return (
@@ -118,7 +127,7 @@ const handleSubmit=(e)=>{
           />
         </Grid>
         <Grid item xs={12} lg={12}>
-        <Button  className='w-full ' sx={{ mt: 3 }} size="large" variant="contained" type="submit" >
+        <Button onClick={navigate("/checkout?step=3")} className='w-full ' sx={{ mt: 3 }} size="large" variant="contained" type="submit" >
               Deliver Here
             </Button>
         </Grid>

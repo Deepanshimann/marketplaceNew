@@ -8,7 +8,7 @@ import Product from '../customer/component/products/Product';
 
 const rootReducers = combineReducers({
   auth: authReducer,
-product:customerProductReducer,
+  customersProduct:customerProductReducer,
   cart:cartReducer,
   order:orderReducer,
   person:{

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUser, logout } from '../../../State/Auth/Action';
 import PopUpModal from '../../SignInUp/PopUpModal';
 import './Navbar.css';
-import useNavAnimation from './useNavAnimation';
+// import useNavAnimation from './useNavAnimation';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import Badge from '@mui/material/Badge';
 
@@ -27,7 +27,7 @@ export default function Navbar() {
   const location = useLocation();
   const dispatch = useDispatch();
   const auth = useSelector(store => store.auth);
- console.log("abc....."+auth.user);
+//  console.log("abc....."+auth.user);
   const jwt = localStorage.getItem("jwt");
 
   const handleCloseUserMenu = () => setAnchorEl(null);
@@ -68,7 +68,7 @@ export default function Navbar() {
     navigate('/');
   }, [dispatch, navigate]);
 
-  const { toggleCategory } = useNavAnimation(activeCategory, setActiveCategory);
+  // const { toggleCategory } = useNavAnimation(activeCategory, setActiveCategory);
 
   const handleCategoryClick = useCallback((category) => {
     if (activeCategory === category) {
