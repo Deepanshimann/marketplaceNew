@@ -65,7 +65,7 @@ export const getUser = (token) => {
         }
       });
       const user = response.data;
-      console.log("req User.... ",user)
+      console.log("req User.... ",user);
       dispatch({ type: GET_USER_SUCCESS,  user });
     
     } catch (error) {

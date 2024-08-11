@@ -5,13 +5,18 @@ import { useNavigate } from 'react-router-dom';
 import SecondSectionCard from '../SecondSectionCard/SecondSectionCard'
 import MenKurta from '../../../Data/MenKurta'
 import {Grid, Box,Button } from '@mui/material'
+import { useParams } from 'react-router-dom';
+
 // import LinearProgress from '@mui/joy/LinearProgress';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 // import { StarIcon } from '@heroicons/react/20/solid'
 import { Radio, RadioGroup } from '@headlessui/react'
 import Rating from '@mui/material/Rating';
 import { LinearProgress } from '@mui/material';
 import Typography from '@mui/material/Typography';
+import { useDispatch, useSelector } from 'react-redux';
+import { findProductById } from '../../../State/CustomerProduct/Action';
+import { addItemToCart } from '../../../State/Cart/Action';
 const product = {
   name: 'Basic Tee 6-Pack',
   price: '$192',
@@ -69,12 +74,31 @@ function classNames(...classes) {
 }
 
 export default function ProductDetails() {
-  const [selectedColor, setSelectedColor] = useState(product.colors[0])
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2])
+
+  const [selectedSize, setSelectedSize] = useState('');
 const navigate=useNavigate();
-const handleAddToCart=()=>{
+const params=useParams();
+const { productId } = useParams();
+const dispatch=useDispatch();
+const jwt = localStorage.getItem("jwt");
+//geting product from store
+const { customersProduct } = useSelector((store) => store);
+
+// const handleAddToCart=()=>{
+//   const data={productId:params.productId,size:selectedSize.name}
+//   dispatch(addItemToCart(data));
+//   navigate("/cart");
+// }
+const handleSubmit = () => {
+  const data = { productId, size: selectedSize.name };
+  dispatch(addItemToCart({ data, jwt }));
   navigate("/cart");
-}
+};
+
+useEffect(()=>{
+  const data={productId:productId,jwt}
+dispatch(findProductById(data))
+},[productId])
 
   return (
     <div className="bg-white pt-20 ">
@@ -112,8 +136,8 @@ const handleAddToCart=()=>{
      <div className="flex flex-col items-center">
           <div className="overflow-hidden rounded-lg max-w-[30rem] max-h-[35rem]">
             <img
-              alt={product.images[0].alt}
-              src={product.images[0].src}
+          src={ customersProduct.product?.imageUrl}
+          alt={product.images[0].alt}
               className="h-full w-full object-cover object-center"
             />
           </div>
@@ -130,9 +154,9 @@ const handleAddToCart=()=>{
    {/* Product info */}
    <div className="lg:col-span-1 max-auto max-w-2xl px-4 pb-16 sm:px-6 lg:max-w-7xl lg:px-8 lg:pb-24">
           <div className="lg:col-span-2 ">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Casual puff sleeves top</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{customersProduct.product?.title}  </h1>
             <h1 className='text-lg lg:text-xl text-gray-900 opacity-60 pt-1'>
-             United Colours of Banatone   
+            {customersProduct.product?.brand}  
             </h1>
           </div>
 
@@ -140,9 +164,9 @@ const handleAddToCart=()=>{
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
             <div className='flex space-x-5 items-center text-lg lg:text-xl text-gray-900 mt-6'>
-                <p className='font-semibold'>&pound;10</p>
-                <p className='opacity-50 line-through'>&pound;20</p>
-                <p className='text-green-600 font-semibold'>50%</p>
+                <p className='font-semibold'>&pound; {customersProduct.product?.discountedPrice} </p>
+                <p className='opacity-50 line-through'> &pound;{customersProduct.product?.price}</p>
+                <p className='text-green-600 font-semibold'> {customersProduct.product?.discountPercent} % Off</p>
             </div>
 
             {/* Reviews */}
@@ -219,7 +243,7 @@ const handleAddToCart=()=>{
                 </fieldset>
               </div>
 
-              <button onClick={handleAddToCart}
+              <button onClick={handleSubmit}
                 type="submit"
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-pink-600 px-8 py-3 text-2xl font-semibold text-white hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
               >
@@ -234,7 +258,7 @@ const handleAddToCart=()=>{
               <h3 className="sr-only">Description</h3>
 
               <div className="space-y-6">
-                <p className="text-base text-gray-900">{product.description}</p>
+                <p className="text-base text-gray-900">{customersProduct.product?.description}</p>
               </div>
             </div>
 

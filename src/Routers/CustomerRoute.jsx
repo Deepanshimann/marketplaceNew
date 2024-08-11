@@ -17,8 +17,8 @@ import ContactUs from '../customer/component/FAQ/HelpCenter/contactUs';
 import {useSelector } from 'react-redux';
 const CustomerRoute = () => {
   const location = useLocation();
-  const product=useSelector(store=>store)
- console.log("..fetching product..",product);
+//   const product=useSelector(store=>store)
+//  console.log("..fetching product..",product);
   return (
     <div>
       <div>
@@ -26,7 +26,7 @@ const CustomerRoute = () => {
       </div>
       <Routes>
         <Route path='/' element={<Homepage />}></Route>
-        <Route path='/:category' element={<Cart />}></Route>
+        <Route path='/cart' element={<Cart />}></Route>
         <Route path='/:category/:item' element={<Product />} />
         <Route path='/product/:productId' element={<ProductDetails />} />
         <Route path='/checkout' element={<Checkout />} />

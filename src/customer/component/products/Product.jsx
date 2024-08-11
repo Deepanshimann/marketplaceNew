@@ -21,10 +21,9 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import MenKurta from "../../../Data/MenKurta"
 import ProductCard from "./ProductCard"
 import { useSelector } from 'react-redux';
-
+import Pagination from '@mui/material/Pagination';
 import { filters, singleFilter, sortOptions } from "./FilterData";
 import BlurOnIcon from '@mui/icons-material/BlurOn';
 import { useLocation, useNavigate,useParams } from 'react-router-dom';
@@ -40,6 +39,8 @@ export default function Product() {
 const location=useLocation();
 const navigate=useNavigate();
 const params = useParams();
+
+
 const decodedQueryString=decodeURIComponent(location.search);
 const searchParams=new URLSearchParams(decodedQueryString);
 const colorValue = searchParams.get("color")
@@ -50,8 +51,23 @@ const sortValue = searchParams.get("sort")
 const pageNumber = searchParams.get("page") || 1;
 const stock = searchParams.get("stock")
 const dispatch=useDispatch();
-const product=useSelector(store=>store)
-console.log("..fetching..",product);
+const { customersProduct } = useSelector((store) => store);
+console.log("..fetching. from productjsx.",customersProduct);
+
+const handleSortChange = (value) => {
+  const searchParams = new URLSearchParams(location.search);
+  searchParams.set("sort", value);
+  const query = searchParams.toString();
+  navigate({ search: `?${query}` });
+};
+
+//Function for change of Pagination
+const handlePaginationChange=(event,value)=>{
+  const searchParams=new URLSearchParams(location.search);
+  searchParams.set("page",value);
+  const query=searchParams.toString();
+  navigate({search:`?${query}`});
+}
 
 //Function to handle/change routes when clicked on checkbox 
 const handleFilter = (value, sectionId) => {
@@ -83,23 +99,23 @@ const handleRadioFilterChange = (e, sectionId) => {
 
 
 useEffect(() => {
-  const [minPrice, maxPrice] = priceValue == null ? [0, 0] : priceValue.split("-").map(Number);
+  const [minPrice, maxPrice] = priceValue == null ? [0, 1000] : priceValue.split("-").map(Number);
 
   const data = {
-    category: params.levelThree || '66b5222a84c065e6b45d9582',
+    category: params.levelThree,
     colors: colorValue || [],
     sizes: sizeValue || [],
-    minPrice,
-    maxPrice,
+    minPrice: minPrice || 0,
+    maxPrice:maxPrice || 10000,
     minDiscount: discount || 0,
     sort: sortValue || "price_low",
-    pageNumber: pageNumber - 1,
+    pageNumber: pageNumber,
     pageSize: 10,
     stock: stock
 }
 dispatch(findProducts(data))
 }, [
-  params.levelThree,
+  params.item,
   colorValue,
   sizeValue,
   priceValue,
@@ -107,7 +123,7 @@ dispatch(findProducts(data))
   sortValue,
   pageNumber,
   stock,
-  dispatch])
+  ]);
 
 
   return (
@@ -443,12 +459,18 @@ dispatch(findProducts(data))
               {/* Product grid */}
               <div className="lg:col-span-3 w-full">
   <div className="flex flex-wrap justify-center">
-    {/* {product.products && product.products?.content.map((item)=>(
+    {customersProduct?.products && customersProduct.products?.content?.map((item)=>(
 <ProductCard product={item}/>
-    ))}  */}
+    ))} 
   </div>
 </div>
-
+            </div>
+          </section>
+          <section className='w-full px=[3.6rem]'>
+            <div className='px-4 py-5 flex justify-center'>
+            <Pagination count={customersProduct.products?.totalPages} 
+            color="secondary"
+             onChange={handlePaginationChange} />
             </div>
           </section>
         </main>

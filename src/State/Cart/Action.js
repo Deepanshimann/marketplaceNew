@@ -73,7 +73,7 @@ console.log("cart ",data)
   }
 };
 
-export const removeCartItem = (reqData) => async (dispatch) => {
+export const removeCartItem = (cartItemId,jwt) => async (dispatch) => {
     try {
       dispatch({ type: REMOVE_CART_ITEM_REQUEST });
       const config = {
@@ -82,11 +82,11 @@ export const removeCartItem = (reqData) => async (dispatch) => {
           "Content-Type":"application/json"
         },
       };
-      await axios.delete(`${API_BASE_URL}/api/cart_items/${reqData.cartItemId}`,config);
+      await axios.delete(`${API_BASE_URL}/api/cart_items/${cartItemId}`,config);
   
       dispatch({
         type: REMOVE_CART_ITEM_SUCCESS,
-        payload: reqData.cartItemId,
+        payload: cartItemId,
       });
     } catch (error) {
       dispatch({
@@ -118,6 +118,7 @@ export const removeCartItem = (reqData) => async (dispatch) => {
         payload: data,
       });
     } catch (error) {
+      console.log("udated cartitem error",error);
       dispatch({
         type: UPDATE_CART_ITEM_FAILURE,
         payload:

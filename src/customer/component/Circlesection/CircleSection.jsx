@@ -2,10 +2,10 @@ import React from 'react';
 
 const CircleSection = () => {
   const items = [
-    { label: 'Gifts For Them', imageUrl: '../../../../public/images/giftcouple.jpg', link: '#' },
-    { label: 'Gems & Jewels', imageUrl: '../../../../public/images/jwell.jpeg', link: '#' },
-    { label: 'Decorative Touches', imageUrl: '../../../../public/images/maximalist-rainbow-rug-in-living-room.jpg', link: '#' },
-    { label: 'Treasures for Little Ones', imageUrl: '../../../../public/images/grandma.jpg', link: '#' },
+    { label: 'Gifts For Them', imageUrl: '/images/giftcouple.jpg', link: '#' },
+    { label: 'Gems & Jewels', imageUrl: '/images/jwell.jpeg', link: '#' },
+    { label: 'Decorative Touches', imageUrl: '/images/maximalist-rainbow-rug-in-living-room.jpg', link: '#' },
+    { label: 'Treasures for Little Ones', imageUrl: '/images/grandma.jpg', link: '#' },
   ];
 
   return (
