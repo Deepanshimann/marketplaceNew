@@ -78,12 +78,12 @@ export const removeCartItem = (cartItemId,jwt) => async (dispatch) => {
       dispatch({ type: REMOVE_CART_ITEM_REQUEST });
       const config = {
         headers: {
-          Authorization: `Bearer ${reqData.jwt}`,
+          Authorization: `Bearer ${jwt}`,
           "Content-Type":"application/json"
         },
       };
       await axios.delete(`${API_BASE_URL}/api/cart_items/${cartItemId}`,config);
-  
+      console.log("API call successful for item deletion.");
       dispatch({
         type: REMOVE_CART_ITEM_SUCCESS,
         payload: cartItemId,

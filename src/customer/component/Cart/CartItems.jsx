@@ -14,10 +14,10 @@ const CartItems = ({item,showButton}) => {
     console.log("update data ",data)
     dispatch(updateCartItem(data))
   }
-  const handleRemoveCartItem = () => {
-    const jwt = localStorage.getItem("jwt"); // Get JWT token here
-    dispatch(removeCartItem(item._id, jwt)); // Pass the jwt token along with the item ID
-  };
+  const handleRemoveClick = () => {
+    console.log("Remove button clicked for item: ", item._id);
+    dispatch(removeCartItem(item._id, jwt)); // Ensure 'jwt' is available in this context
+};
   
   return (
     
@@ -49,7 +49,7 @@ const CartItems = ({item,showButton}) => {
     </IconButton>   
 </div>
 <div>
-  <Button onClick={handleRemoveCartItem}>Remove</Button>  
+<button onClick={handleRemoveClick}>REMOVE</button> 
 </div>
 </div>
 </div>

@@ -1,14 +1,14 @@
 import React from 'react'
 
-const AddressCard = () => {
+const AddressCard = ({address}) => {
   return (
     <div>
       <div className='space-y-3'>
-        <p className='font-semibold'>Abhishek Lather</p>
-<p>4/1 63 Gellatly Street, DD1 3DZ</p>
+        <p className='font-semibold'>{address?.firstName+" "+address?.lastName}</p>
+<p>{address?.state},{address?.streetAddress},{address?.zipcode}</p>
 <div className='space-y-1'>
 <p className='font-semibold'>Contact Number</p>
-<p>9466546916</p>
+<p>{address?.mobile}</p>
 </div>
       </div>
     </div>

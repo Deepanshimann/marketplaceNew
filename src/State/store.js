@@ -11,17 +11,7 @@ const rootReducers = combineReducers({
   customersProduct:customerProductReducer,
   cart:cartReducer,
   order:orderReducer,
-  person:{
-    name: 'John Doe',
-    age: 30,
-    email: 'john.doe@example.com',
-    address: {
-      street: '123 Main St',
-      city: 'Anytown',
-      state: 'CA',
-      zip: '12345'
-    },
-  }
+
 });
 
 const store = legacy_createStore(rootReducers, applyMiddleware(thunk));
