@@ -12,7 +12,6 @@ import Orderpage from '../customer/component/Order/Orderpage';
 import FrontPage from '../customer/component/front-page/FrontPage';
  import FaqSection from '../customer/component/FAQ/Faq'; // Corrected import statement
 import Helpcenter from '../customer/component/FAQ/HelpCenter/Helpcenter';
-import Lastsection from '../customer/component/lastSection/Lastsection';
 import ContactUs from '../customer/component/FAQ/HelpCenter/contactUs';
 import {useSelector } from 'react-redux';
 const CustomerRoute = () => {
@@ -37,7 +36,6 @@ const CustomerRoute = () => {
       </Routes>
       <div>
       {location.pathname !== '/help-center' && <FaqSection />}
-      <Lastsection/>
         <Footer />
       </div>
     </div>
