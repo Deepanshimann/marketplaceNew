@@ -3,7 +3,7 @@ import AddressCard from "../AddressCard";
 import { Button, Grid,Box ,TextField} from "@mui/material";
 import { useDispatch} from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import {createOrder} from '../../../State/Order/Action'
+import {createOrder, getOrderById} from '../../../State/Order/Action'
 const DeliveryAddress = () => {
  
 const dispatch=useDispatch();
@@ -21,17 +21,17 @@ const handleSubmit=(e)=>{
         mobile: data.get("contactNumber"),
         email: data.get("email")
       }
-      console.log("address",address)
-const orderData={address,navigate}
-  dispatch(createOrder(orderData)) 
-      
+
+  console.log("address", address);
+  const orderData = { address, navigate };
+  dispatch(getOrderById(orderData));      
 
 }
 
   return (
     <div>
       <Grid container spacing={4}>
-        <Grid xs={12} lg={3} className=" mt-[5rem] border  rounded-e-md shadow-md h-[30.5rem] ">
+        <Grid xs={12}  className=" mt-[5rem] border  rounded-e-md shadow-md h-[30.5rem] ">
           <div className=" p-5 py-7 border-b cursor-pointer">
             <AddressCard />
             <Button sx={{ mt: 3 }} size="large" variant="contained">
@@ -70,7 +70,7 @@ const orderData={address,navigate}
             name="address"
             label="Full Address"
             fullWidth
-            autoComplete="given-name"
+            autoComplete="given-address"
             multiline
             rows={5}
           />
@@ -83,7 +83,7 @@ const orderData={address,navigate}
             name="city"
             label="City"
             fullWidth
-            autoComplete="given-name"
+            autoComplete="given-city"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -93,7 +93,7 @@ const orderData={address,navigate}
             name="county"
             label="County"
             fullWidth
-            autoComplete="given-name"
+            autoComplete="given-state"
           />
         </Grid>
         <Grid item xs={12}>
@@ -103,7 +103,7 @@ const orderData={address,navigate}
             name="email"
             label="e-mail Address"
             fullWidth
-            autoComplete="given-name"
+            autoComplete="given-email"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -113,17 +113,17 @@ const orderData={address,navigate}
             name="postcode"
             label="Post Code"
             fullWidth
-            autoComplete="given-name"
+            autoComplete="given-postcode"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="contactnumber"
-            name="contactnumber"
+            id="contactNumber"
+            name="contactNumber"
             label="Contact Number"
             fullWidth
-            autoComplete="given-name"
+            autoComplete="given-number"
           />
         </Grid>
         <Grid item xs={12} lg={12}>
