@@ -17,8 +17,8 @@ export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(step);
 
   return (
-    <div className=' px-10 lg:px-20'>
-      <div className='p-6 shadow-lg rounded-s-md border'>
+    <div className=' px-10 lg:px-20 pt-32 '>
+      <div className='p-6 shadow-lg rounded-s-md border '>
       <Stepper activeStep={activeStep} sx={{ width: '100%' }}>
         {steps.map((step, index) => (
           <Step

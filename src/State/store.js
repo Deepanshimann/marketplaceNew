@@ -5,12 +5,14 @@ import customerProductReducer from './CustomerProduct/Reducer'
 import cartReducer from './Cart/Reducer';
 import { orderReducer } from './Order/Reducer';
 import Product from '../customer/component/products/Product';
+import adminOrderReducer from './AdminOrder/Reducer';
 
 const rootReducers = combineReducers({
   auth: authReducer,
   customersProduct:customerProductReducer,
   cart:cartReducer,
   order:orderReducer,
+  adminOrder:adminOrderReducer
 
 });
 

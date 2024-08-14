@@ -13,6 +13,7 @@ import FrontPage from '../customer/component/front-page/FrontPage';
  import FaqSection from '../customer/component/FAQ/Faq'; // Corrected import statement
 import Helpcenter from '../customer/component/FAQ/HelpCenter/Helpcenter';
 import ContactUs from '../customer/component/FAQ/HelpCenter/contactUs';
+import PaymentSuccess from '../customer/component/Paymentsuccessful/Paymentsuccessful';
 import {useSelector } from 'react-redux';
 const CustomerRoute = () => {
   const location = useLocation();
@@ -33,6 +34,7 @@ const CustomerRoute = () => {
         <Route path='/account/order/:orderId' element={<OrderDetails />} />
         <Route path='/help-center' element={<Helpcenter />}></Route>
         <Route path='/contact-us' element={<ContactUs />}></Route>
+        <Route path="/payment/:orderId" element={<PaymentSuccess />}></Route>
       </Routes>
       <div>
       {location.pathname !== '/help-center' && <FaqSection />}

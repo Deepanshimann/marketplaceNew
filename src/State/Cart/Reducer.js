@@ -60,7 +60,7 @@ import {
       case REMOVE_CART_ITEM_SUCCESS:
         return {
           ...state,
-         deleteCartItem:action.payload,
+          cartItems: state.cartItems.filter(item => item._id !== action.payload),
           loading: false,
         };
       case UPDATE_CART_ITEM_SUCCESS:

@@ -13,9 +13,11 @@ import {
 import api, { API_BASE_URL } from "../../config/apiConfig";
 
 export const createOrder = (reqData) => async (dispatch) => {
+
   console.log("req data ", reqData);
   try {
     dispatch({ type: CREATE_ORDER_REQUEST });
+
 
     const config = {
       headers: {
@@ -26,7 +28,7 @@ export const createOrder = (reqData) => async (dispatch) => {
 
     const { data } = await api.post(
       `${API_BASE_URL}/api/orders/`,
-      reqData.address,
+      reqData.address,  // Send the updated request data including userId     
     );
     
     if (data._id) {
@@ -50,7 +52,7 @@ export const createOrder = (reqData) => async (dispatch) => {
 };
 
 export const getOrderById = (orderId) => async (dispatch) => {
-  console.log("get order req ", orderId);
+  console.log("fetching order with id getorderbyid ", orderId);
   try {
     dispatch({ type: GET_ORDER_BY_ID_REQUEST });
 
@@ -58,7 +60,8 @@ export const getOrderById = (orderId) => async (dispatch) => {
       `/api/orders/${orderId}`,
       
     );
-    console.log("order by id ", data);
+    console.log("Order fetched from API:", data);
+
     dispatch({
       type: GET_ORDER_BY_ID_SUCCESS,
       payload: data,

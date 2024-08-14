@@ -9,7 +9,7 @@ const CircleSection = () => {
   ];
 
   return (
-    <div className='text-center mb-40'>
+    <div className='text-center pb-24'>
         <h1 className='mt-20 text-7xl text-[#252F3F] my-20'>Explore More!</h1>
     <div className="flex  px-10 justify-between space-x-5  ">  
       {items.map((item, index) => (
