@@ -4,6 +4,7 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import { ThemeProvider, createTheme, styled, useTheme } from '@mui/material/styles'
+import './AchivementTable.css'
 
 // Styled component for the triangle shaped background image
 const TriangleImg = styled('img')({
@@ -31,7 +32,7 @@ const AchivementTable = () => {
 
   return (
   
-       <Card sx={{ position: 'relative' }}>
+       <Card className='card' >
       <CardContent>
       <Typography variant='h6' sx={{ letterSpacing: '0.25px' }}>
         Vintage Store

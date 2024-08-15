@@ -7,7 +7,7 @@ import CardHeader from '@mui/material/CardHeader'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
-
+import './MonthlyOverview.css'
 // ** Icons Imports
 import TrendingUp from 'mdi-material-ui/TrendingUp'
 import CurrencyUsd from 'mdi-material-ui/CurrencyUsd'
@@ -70,7 +70,8 @@ const renderStats = () => {
 
 const MonthlyOverview = () => {
   return (
-    <Card>
+    <div className='card'>
+    <Card >
       <CardHeader
         title='Monthly Overview'
         action={
@@ -100,6 +101,7 @@ const MonthlyOverview = () => {
         </Grid>
       </CardContent>
     </Card>
+    </div>
   )
 }
 

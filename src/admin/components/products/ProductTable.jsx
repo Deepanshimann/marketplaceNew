@@ -68,13 +68,21 @@ import {
       dispatch(findProducts(data));
     }, [availability, category, sort,page,customersProduct.deleteProduct]);
   
+    // const handleFilterChange = (e, sectionId) => {
+    //   console.log(e.target.value, sectionId);
+    //   setFilterValue((values) => ({ ...values, [sectionId]: e.target.value }));
+    //   searchParams.set(sectionId, e.target.value);
+    //   const query = searchParams.toString();
+    //   navigate({ search: `?${query}` });
+    // };
+
     const handleFilterChange = (e, sectionId) => {
-      console.log(e.target.value, sectionId);
       setFilterValue((values) => ({ ...values, [sectionId]: e.target.value }));
       searchParams.set(sectionId, e.target.value);
       const query = searchParams.toString();
       navigate({ search: `?${query}` });
     };
+    
   
     const handleDeleteProduct=(productId)=>{
       console.log("delete product ",productId)
@@ -103,10 +111,10 @@ import {
                   label="Category"
                   onChange={(e) => handleFilterChange(e, "category")}
                 >
-                  <MenuItem value={"pant"}>Men's Pants</MenuItem>
-                  <MenuItem value={"mens_kurta"}>Men's Kurta</MenuItem>
-                  <MenuItem value={"saree"}>Saree</MenuItem>
-                  <MenuItem value={"lengha_choli"}>Lengha Choli</MenuItem>
+                  <MenuItem value={"pant"}>Clothing</MenuItem>
+                  <MenuItem value={"mens_kurta"}>Printed Media</MenuItem>
+                  <MenuItem value={"saree"}>Electronics</MenuItem>
+                  <MenuItem value={"lengha_choli"}>Furniture</MenuItem>
                 </Select>
               </FormControl>
             </Grid>

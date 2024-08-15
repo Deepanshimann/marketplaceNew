@@ -69,22 +69,11 @@ import {
       dispatch(findProducts(data));
     }, [availability, category, sort,page,customersProduct.deleteProduct]);
   
-    // const handleFilterChange = (e, sectionId) => {
-    //   console.log(e.target.value, sectionId);
-    //   setFilterValue((values) => ({ ...values, [sectionId]: e.target.value }));
-    //   searchParams.set(sectionId, e.target.value);
-    //   const query = searchParams.toString();
-    //   navigate({ search: `?${query}` });
-    // };
-  
-    // const handleDeleteProduct=(productId)=>{
-    //   console.log("delete product ",productId)
-    //   dispatch(deleteProduct(productId))
-    // }
+   
   
     return (
-      <Box width={"100%"}>
-        <Card className="p-3">
+      <Box width={"95%"} >
+        <Card className="p-6">
           <CardHeader
             title="Sort"
             sx={{
@@ -104,10 +93,10 @@ import {
                   label="Category"
                   onChange={(e) => handleFilterChange(e, "category")}
                 >
-                  <MenuItem value={"pant"}>Men's Pants</MenuItem>
-                  <MenuItem value={"mens_kurta"}>Men's Kurta</MenuItem>
-                  <MenuItem value={"saree"}>Saree</MenuItem>
-                  <MenuItem value={"lengha_choli"}>Lengha Choli</MenuItem>
+                  <MenuItem value={"pant"}>Clothing</MenuItem>
+                  <MenuItem value={"mens_kurta"}>Printed Media</MenuItem>
+                  <MenuItem value={"saree"}>Electronics</MenuItem>
+                  <MenuItem value={"lengha_choli"}>Furniture</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -141,8 +130,8 @@ import {
                   label="Sort By Price"
                   onChange={(e) => handleFilterChange(e, "sort")}
                 >
-                  <MenuItem value={"price_high"}>Heigh - Low</MenuItem>
-                  <MenuItem value={"price_low"}>Low - Heigh</MenuItem>
+                  <MenuItem value={"price_high"}>High - Low</MenuItem>
+                  <MenuItem value={"price_low"}>Low - High</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -166,7 +155,6 @@ import {
                   <TableCell sx={{ textAlign: "center" }}>Category</TableCell>
                   <TableCell sx={{ textAlign: "center" }}>Price</TableCell>
                   <TableCell sx={{ textAlign: "center" }}>Quantity</TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>Delete</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -198,7 +186,7 @@ import {
                       </Box>
                     </TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{item?.category?.name}</TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>{item?.discountedPrice}</TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>&pound;{item?.discountedPrice}</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>{item?.quantity}</TableCell>
                 
                   </TableRow>

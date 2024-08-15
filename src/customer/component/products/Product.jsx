@@ -14,6 +14,7 @@ import {
   MenuItem,
   MenuItems,
 } from '@headlessui/react'
+
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import FormLabel from "@mui/material/FormLabel";
@@ -29,7 +30,7 @@ import BlurOnIcon from '@mui/icons-material/BlurOn';
 import { useLocation, useNavigate,useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import { findProducts } from '../../../State/CustomerProduct/Action'
-
+import './Product.css';
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -59,7 +60,12 @@ const handleSortChange = (value) => {
   searchParams.set("sort", value);
   const query = searchParams.toString();
   navigate({ search: `?${query}` });
+  window.scrollTo(0, 0); // Scroll to the top of the page
 };
+useEffect(() => {
+  window.scrollTo(0, 0);
+}, [pageNumber]);
+
 
 //Function for change of Pagination
 const handlePaginationChange=(event,value)=>{
@@ -110,7 +116,7 @@ useEffect(() => {
     minDiscount: discount || 0,
     sort: sortValue || "price_low",
     pageNumber: pageNumber,
-    pageSize: 10,
+    pageSize: 8,
     stock: stock
 }
 dispatch(findProducts(data))
@@ -124,10 +130,10 @@ dispatch(findProducts(data))
   pageNumber,
   stock,
   ]);
-
+  console.log('Page number:', pageNumber);
 
   return (
-    <div className="bg-white">
+    <div className="bg-white ">
       <div>
         {/* Mobile filter dialog */}
         <Dialog open={mobileFiltersOpen} onClose={setMobileFiltersOpen} className="relative z-40 lg:hidden">
@@ -279,7 +285,7 @@ dispatch(findProducts(data))
         </Dialog>
 
         <main className="mx-auto  px-4 sm:px-6 lg:px-20">
-          <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
+          <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-12">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
 
             <div className="flex items-center">
@@ -303,6 +309,7 @@ dispatch(findProducts(data))
                       <MenuItem key={option.name}>
                         <a
                           href={option.href}
+                          onClick={() => handleSortChange(option.query)}
                           className={classNames(
                             option.current ? 'font-medium text-gray-900' : 'text-gray-500',
                             'block px-4 py-2 text-sm data-[focus]:bg-gray-100',
@@ -466,11 +473,25 @@ dispatch(findProducts(data))
 </div>
             </div>
           </section>
-          <section className='w-full px=[3.6rem]'>
-            <div className='px-4 py-5 flex justify-center'>
-            <Pagination count={customersProduct.products?.totalPages} 
+          <section className='pagination-container   w-full px=[3.6rem]' >
+            <div className='pagination '>
+            <Pagination  count={customersProduct.products?.totalPages} 
             color="secondary"
-             onChange={handlePaginationChange} />
+             onChange={handlePaginationChange} 
+             sx={{
+              '& .MuiPaginationItem-root': {
+                fontSize: '1.3rem',  // Change font size
+                color: '#1F2937',    // Custom color for the pagination items
+              },
+              '& .MuiPaginationItem-page.Mui-selected': {
+                backgroundColor: '#2dd4bf', 
+                color: 'white',             
+              },
+              '& .MuiPaginationItem-page': {
+                padding: '10px 15px', 
+              },
+            }}
+             />
             </div>
           </section>
         </main>

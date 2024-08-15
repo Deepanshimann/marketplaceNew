@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import "./createProductForm.css";
 import { useDispatch } from "react-redux";
 import { createProduct } from "../../../State/CustomerProduct/Action";
+import { useNavigate } from "react-router-dom";
 
 // Categories data
 const categories = {
@@ -36,11 +37,14 @@ const CreateProductForm = () => {
     quantity: "",
     topLevelCategory: "",
     secondLevelCategory: "",
+    height: "",
+    length: "",
+    width: "",
   });
 
   const [secondLevelOptions, setSecondLevelOptions] = useState([]);
   const dispatch = useDispatch();
-  const jwt = localStorage.getItem("jwt");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -70,18 +74,12 @@ const CreateProductForm = () => {
     }));
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   dispatch(createProduct(productData));
-  //   console.log(productData);
-  //   navigate('/admin/products');
-  // };
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createProduct(productData))
       .then(() => {
         console.log("Product created successfully.");
-        navigate('/admin/products');  // Redirect to the products section after successful creation
+        navigate("/admin/products"); // Redirect to the products section after successful creation
       })
       .catch((error) => {
         console.error("Error creating product:", error);
@@ -89,7 +87,7 @@ const CreateProductForm = () => {
   };
 
   return (
-    <Fragment >
+    <Fragment>
       <Typography variant="h3" sx={{ textAlign: "center" }} className="py-10 text-center">
         Add New Product
       </Typography>
@@ -218,30 +216,72 @@ const CreateProductForm = () => {
               value={productData.description}
             />
           </Grid>
-          {productData.size.map((size, index) => (
-            <Grid container item spacing={3} key={index}>
-              <Grid item xs={12} sm={6}>
+
+          {productData.topLevelCategory === "Clothing" && (
+            productData.size.map((size, index) => (
+              <Grid container item spacing={3} key={index}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    label="Size Name"
+                    name="name"
+                    value={size.name}
+                    onChange={(event) => handleSizeChange(event, index)}
+                    required
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    label="Quantity"
+                    name="size_quantity"
+                    type="number"
+                    onChange={(event) => handleSizeChange(event, index)}
+                    required
+                    fullWidth
+                  />
+                </Grid>
+              </Grid>
+            ))
+          )}
+
+          {productData.topLevelCategory === "Furniture" && (
+            <>
+              <Grid item xs={12} sm={4}>
                 <TextField
-                  label="Size Name"
-                  name="name"
-                  value={size.name}
-                  onChange={(event) => handleSizeChange(event, index)}
+                  label="Height in feet"
+                  name="height"
+                  value={productData.height}
+                  onChange={handleChange}
                   required
                   fullWidth
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  label="Quantity"
-                  name="size_quantity"
                   type="number"
-                  onChange={(event) => handleSizeChange(event, index)}
-                  required
-                  fullWidth
                 />
               </Grid>
-            </Grid>
-          ))}
+              <Grid item xs={12} sm={4}>
+                <TextField
+                  label="Length in feet"
+                  name="length"
+                  value={productData.length}
+                  onChange={handleChange}
+                  required
+                  fullWidth
+                  type="number"
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <TextField
+                  label="Width in feet"
+                  name="width"
+                  value={productData.width}
+                  onChange={handleChange}
+                  required
+                  fullWidth
+                  type="number"
+                />
+              </Grid>
+            </>
+          )}
+
           <Grid item xs={12}>
             <Button variant="contained" sx={{ p: 1.8 }} className="py-20" size="large" type="submit">
               Add New Product

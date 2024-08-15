@@ -1,0 +1,42 @@
+/* General Pagination Container */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+  
+  /* Pagination List */
+  .pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin-top: 0.5rem;
+  }
+  
+  /* Pagination List Items */
+  .pagination li {
+    margin: 0 5px;
+  }
+
+  
+  /* Hover State for Pagination Links */
+  .pagination li a:hover {
+    background-color: #2DD4BF;
+    color: #fff;
+  }
+  
+  /* Active Page State */
+  .pagination .MuiPaginationItem-page.Mui-selected,
+  .pagination li a.active {
+    background-color: #2DD4BF;
+    color: white;
+  }
+  
+  /* Media Queries */
+  @media (min-width: 768px) {
+    .pagination-container {
+      padding: 20px;
+    }
+  }
+  

@@ -1,12 +1,12 @@
 import React from 'react'
 import {Route,Routes} from 'react-router-dom';
-import Admin from '../admin/components/Admin'
+import AdminPannel from '../admin/components/AdminPannel'
 
 export const AdminRoutes = () => {
   return (
     <div>
       <Routes>
-        <Route path='/*'element={<Admin/>} ></Route>
+        <Route path='/*'element={<AdminPannel/>} ></Route>
       </Routes>
     </div>
   )

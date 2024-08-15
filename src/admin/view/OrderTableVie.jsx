@@ -90,8 +90,8 @@ import {
     //   },[adminsOrder.orders])
   
     return (
-      <Box>
-        <Card className="p-3">
+      <Box width={"95%"}>
+        <Card className="p-6">
           <CardHeader
             title="Sort"
             sx={{
@@ -196,7 +196,7 @@ import {
                       </Box>
                     </TableCell>
   
-                    <TableCell>{item?.totalPrice}</TableCell>
+                    <TableCell>&pound;{item?.totalPrice}</TableCell>
                     <TableCell>{item?._id}</TableCell>
                     <TableCell className="text-white">
                       <Chip
@@ -219,17 +219,7 @@ import {
                     >
                       {/* <Button>{item.orderStatus==="PENDING"?"PENDING": item.orderStatus==="PLACED"?"CONFIRMED":item.orderStatus==="CONFIRMED"?"SHIPPED":"DELEVERED"}</Button> */}
                       <div>
-                        <Button
-                          id={`basic-button-${item?._id}`}
-                          aria-controls={`basic-menu-${item._id}`}
-                          aria-haspopup="true"
-                          aria-expanded={Boolean(anchorElArray[index])}
-                          onClick={(event) =>
-                            handleUpdateStatusMenuClick(event, index)
-                          }
-                        >
-                          Status
-                        </Button>
+                    
                         <Menu
                           id={`basic-menu-${item?._id}`}
                           anchorEl={anchorElArray[index]}

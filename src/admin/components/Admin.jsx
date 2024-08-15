@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser, logout } from "../../State/Auth/Action";
 import { useEffect } from "react";
 import { deepPurple } from "@mui/material/colors";
+import AdminNav from "./AdminNav/AdminNav";
 
 const drawerWidth = 240;
 
@@ -40,7 +41,7 @@ const menu = [
 export default function Admin() {
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
-  const [sideBarVisible, setSideBarVisible] = React.useState(false);
+  const [sideBarVisible, setSideBarVisible] = React.useState(false);  // Sidebar visibility controlled here
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { auth } = useSelector((store) => store);
@@ -101,12 +102,8 @@ export default function Admin() {
     </Box>
   );
 
-  const handleSideBarViewInMobile = () => {
-    setSideBarVisible(true);
-  };
-
-  const handleCloseSideBar = () => {
-    setSideBarVisible(false);
+  const handleSideBarToggle = () => {
+    setSideBarVisible(!sideBarVisible);  // Toggle sidebar visibility
   };
 
   const drawerVariant = isLargeScreen ? "permanent" : "temporary";
@@ -114,6 +111,7 @@ export default function Admin() {
   return (
     <Box sx={{ display: `${isLargeScreen ? "flex" : "block"}` }}>
       <CssBaseline />
+      <AdminNav onToggleSidebar={handleSideBarToggle} />  {/* Pass the toggle function as a prop */}
       <Drawer
         variant={drawerVariant}
         sx={{
@@ -134,15 +132,15 @@ export default function Admin() {
             }),
           },
         }}
-        open={isLargeScreen || sideBarVisible}
-        onClose={handleCloseSideBar}
+        open={isLargeScreen || sideBarVisible}  // Sidebar only opens when the state is true
+        onClose={() => setSideBarVisible(false)}  // Close sidebar on outside click
       >
         {drawer}
       </Drawer>
       <Box className="adminContainer" component="main" sx={{ flexGrow: 1 }}>
         <Toolbar />
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Dashboard className="p-32"/>} />
           <Route path="/product/create" element={<CreateProductForm />} />
           <Route path="/products" element={<ProductsTable />} />
           <Route path="/orders" element={<OrdersTable />} />
