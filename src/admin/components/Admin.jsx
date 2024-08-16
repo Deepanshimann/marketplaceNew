@@ -1,152 +1,138 @@
-import * as React from "react";
-import { Box, Avatar } from "@mui/material";
-import Drawer from "@mui/material/Drawer";
-import CssBaseline from "@mui/material/CssBaseline";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemButton from "@mui/material/ListItemButton";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import React, { useState, useEffect, useCallback } from 'react';
+import { Box, Avatar, Toolbar, CssBaseline, Button, Typography } from "@mui/material";
+import { useNavigate, Route, Routes } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { useTheme } from "@mui/material/styles";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import ListItemIcon from "@mui/material/ListItemIcon";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { deepPurple } from "@mui/material/colors";
+import { getUser, logout } from "../../State/Auth/Action";
+import PopUpModal from '../../customer/SignInUp/PopUpModal';
 import Dashboard from "./Dashboard";
-import { Route, Routes, useNavigate } from "react-router-dom";
 import CreateProductForm from "./createproduct/CreateProductForm";
 import ProductsTable from "./products/ProductTable";
 import OrdersTable from "./ordersTable/OrderTable";
 import Customers from "./customers/CustomerTable";
-import { useDispatch, useSelector } from "react-redux";
-import { getUser, logout } from "../../State/Auth/Action";
-import { useEffect } from "react";
-import { deepPurple } from "@mui/material/colors";
-import AdminNav from "./AdminNav/AdminNav";
-
-const drawerWidth = 240;
-
-const menu = [
-  { name: "Dashboard", path: "/admin" },
-  { name: "Products", path: "/admin/products" },
-  { name: "Customers", path: "/admin/customers" },
-  { name: "Orders", path: "/admin/orders" },
-  { name: "Total Earnings", path: "/admin" },
-  { name: "Weekly Overview", path: "/admin" },
-  { name: "Monthly Overview", path: "/admin" },
-  { name: "Add Product", path: "/admin/product/create" },
-];
+import './Admin.css';
+import AdminImage from '/images/adultmoney1.jpg'; // Correct import
 
 export default function Admin() {
-  const theme = useTheme();
-  const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
-  const [sideBarVisible, setSideBarVisible] = React.useState(false);  // Sidebar visibility controlled here
+  const [openAuthModal, setOpenAuthModal] = useState(false);
+  const [modalType, setModalType] = useState('login');
+  const [isAdminEntered, setIsAdminEntered] = useState(false); // New state to track if admin mode is entered
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const theme = useTheme();
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
   const { auth } = useSelector((store) => store);
-
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate("/");
-  };
-
+  const products = []; // Simulating no products. Replace this with your actual products state.
+  const orders = [];   // Simulating no orders. Replace this with your actual orders state.
+  const customers = []; // Simulating no customers. Replace this with your actual customers state.
   const jwt = localStorage.getItem("jwt");
 
+  const handleOpenAuthModal = useCallback((type) => {
+    setModalType(type);
+    setOpenAuthModal(true);
+    navigate(type === 'login' ? '/loginform' : '/registerform');
+  }, [navigate]);
+
+  const handleCloseAuthModal = useCallback(() => {
+    setOpenAuthModal(false);
+  },[]);
+
   useEffect(() => {
-    if (jwt) {
+    if (jwt && !auth.user) {
       dispatch(getUser(jwt));
     }
-  }, [jwt]);
+  }, [jwt, auth.user, dispatch]);
 
-  const drawer = (
-    <Box
-      sx={{
-        overflow: "auto",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-      }}
-    >
-      {isLargeScreen && <Toolbar />}
-      <List>
-        {menu.map((item, index) => (
-          <ListItem key={item.name} disablePadding onClick={() => navigate(item.path)}>
-            <ListItemButton>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={item.name} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+  useEffect(() => {
+    if (auth.user) {
+      handleCloseAuthModal();
+      if (location.pathname === '/loginform' || location.pathname === '/registerform') {
+        navigate('/profile');
+      }
+    }
+  }, [auth.user, handleCloseAuthModal, navigate]);
 
-      <List sx={{ position: "absolute", bottom: 0, width: "100%" }}>
-        <Divider />
-        <ListItem onClick={handleLogout} disablePadding>
-          <ListItemButton>
-            <Avatar
-              className="text-white"
-              onClick={handleLogout}
-              sx={{
-                bgcolor: deepPurple[500],
-                color: "white",
-                cursor: "pointer",
-              }}
-            >
-              {auth.user?.firstName[0].toUpperCase()}
-            </Avatar>
-            <ListItemText className="ml-5" primary={"Logout"} />
-          </ListItemButton>
-        </ListItem>
-      </List>
-    </Box>
-  );
+  const handleLogout = useCallback(() => {
+    dispatch(logout());
+    localStorage.removeItem("jwt");
+    navigate('/');
+  }, [dispatch, navigate]);
 
-  const handleSideBarToggle = () => {
-    setSideBarVisible(!sideBarVisible);  // Toggle sidebar visibility
+  const handleGuidelineClick = () => {
+    navigate('/guidelines');
   };
 
-  const drawerVariant = isLargeScreen ? "permanent" : "temporary";
+  const handleEnterAdminClick = () => {
+    setIsAdminEntered(true); // Set admin mode to entered
+  };
+
+  const isNewUser = products.length === 0 && orders.length === 0 && customers.length === 0;
 
   return (
-    <Box sx={{ display: `${isLargeScreen ? "flex" : "block"}` }}>
+    <div>
       <CssBaseline />
-      <AdminNav onToggleSidebar={handleSideBarToggle} />  {/* Pass the toggle function as a prop */}
-      <Drawer
-        variant={drawerVariant}
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: {
-            width: drawerWidth,
-            boxSizing: "border-box",
-            ...(drawerVariant === "temporary" && {
-              top: 0,
-              [`& .MuiPaper-root.MuiDrawer-paperAnchorTop.MuiDrawer-paperTemporary`]: {
-                position: "fixed",
-                left: 0,
-                right: 0,
-                height: "100%",
-                zIndex: (theme) => theme.zIndex.drawer + 2,
-              },
-            }),
-          },
-        }}
-        open={isLargeScreen || sideBarVisible}  // Sidebar only opens when the state is true
-        onClose={() => setSideBarVisible(false)}  // Close sidebar on outside click
-      >
-        {drawer}
-      </Drawer>
-      <Box className="adminContainer" component="main" sx={{ flexGrow: 1 }}>
-        <Toolbar />
-        <Routes>
-          <Route path="/" element={<Dashboard className="p-32"/>} />
-          <Route path="/product/create" element={<CreateProductForm />} />
-          <Route path="/products" element={<ProductsTable />} />
-          <Route path="/orders" element={<OrdersTable />} />
-          <Route path="/customers" element={<Customers />} />
-        </Routes>
+      <div className="navbar">
+        <nav>
+          <h1 onClick={() => navigate('/')} className="navbar-title">Vintage Store</h1>
+          <div className="nav-links">
+            <h4 onClick={() => navigate('/admin/products')}>Products</h4>
+            <h4 onClick={() => navigate('/admin/customers')}>Customers</h4>
+            <h4 onClick={() => navigate('/admin/orders')}>Orders</h4>
+            <h4 onClick={() => navigate('/admin/product/create')}>Add Product</h4>
+            <h4 onClick={() => navigate('/contact-us')}>Contact Us</h4>
+            <h4 onClick={() => navigate('/help-center')}>Help</h4>
+            {auth.user ? (
+              <>
+                <Avatar
+                  className="text-white"
+                  onClick={handleLogout}
+                  sx={{
+                    bgcolor: deepPurple[500],
+                    color: "white",
+                    cursor: "pointer",
+                  }}
+                >
+                  {auth.user.firstName[0].toUpperCase()}
+                </Avatar>
+                <h4 onClick={handleLogout}>Logout</h4>
+              </>
+            ) : (
+              <h4 onClick={() => handleOpenAuthModal('login')}>Sign In</h4>
+            )}
+          </div>
+        </nav>
+      </div>
+      <PopUpModal handleClose={handleCloseAuthModal} open={openAuthModal} type={modalType} />
+      <Box className="adminContainer" component="main" sx={{ flexGrow: 1, p: 3 }}>
+
+        {/* Conditionally Render the New User Section or Admin Dashboard */}
+        {isNewUser && !isAdminEntered ? (
+          <div className="new-user-container">
+    <div className="new-user-content">
+        <h4 className="new-user-title">Start Your New Business with Vintage Store</h4>
+        <p className="new-user-description">
+            Start earning money by adding your own products to Vintage Store. It's easy and fast to set up. Begin your journey as a seller and grow your business with us.
+        </p>
+        <div className='btn-container'>
+        <button className="guideline-button" onClick={handleGuidelineClick}>Read Guidelines</button>
+        <button className="enter-admin-button" onClick={handleEnterAdminClick}>Enter Admin Panel</button>
+        </div>
+    </div>
+    <img src={AdminImage} alt="Admin banner" className="new-user-image" />
+</div>
+
+) : (
+  <Routes>
+    <Route path="/" element={<Dashboard className="p-32" />} />
+    <Route path="/product/create" element={<CreateProductForm />} />
+    <Route path="/products" element={<ProductsTable />} />
+    <Route path="/orders" element={<OrdersTable />} />
+    <Route path="/customers" element={<Customers />} />
+  </Routes>
+)}
       </Box>
-    </Box>
+    </div>
   );
 }

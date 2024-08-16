@@ -134,6 +134,7 @@ export default function Navbar() {
                     <h5><span onClick={() => { navigate('/help-center'); closeDropdown(); }}>Help</span></h5>
                     <h5><span onClick={() => { navigate('/account/orders'); closeDropdown(); }}>My Orders</span></h5>
                     <h5><span onClick={() => { navigate('/contact-us'); closeDropdown(); }}>Contact Us</span></h5>
+                    <h5><span onClick={() => { navigate('/admin'); closeDropdown(); }}>Admin</span></h5>
                     <h5><span onClick={handleLogout}>Logout</span></h5>
                   </>
                 ) : (

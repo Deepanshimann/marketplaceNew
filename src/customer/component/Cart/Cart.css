@@ -1,0 +1,15 @@
+.emptycartbutton {
+    background-color: #2DD4BF;
+    display: flex;
+    align-items: center;
+    font-family: 'Gilroy', sans-serif;
+    font-size: 1.1vw;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  

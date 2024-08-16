@@ -12,6 +12,10 @@ const categories = {
   "Printed Media": ["Fiction", "Biographies", "Spiritual", "Story Collections"],
   Electronics: ["Entertainment", "Computing", "Personal Gadgets", "Mobile Devices"],
   Furniture: ["Living Room", "Bedroom", "Dining Room", "Office"],
+  Gifts: ["For Him","For Her"], // New Category
+  Jewels: ["Rings", "Necklaces", "Bracelets"], // Updated Category
+  "Decorative Touches": ["Wall Art", "Vases", "Candles & Candleholders", "Throw Pillows", "Rugs", "Decorative Lights"], // New Category
+  "Treasures for Little Ones": ["For Him","For Her"], // New Category
 };
 
 const initialSizes = [
@@ -40,6 +44,7 @@ const CreateProductForm = () => {
     height: "",
     length: "",
     width: "",
+    unit: "feet", // Default unit for measurements
   });
 
   const [secondLevelOptions, setSecondLevelOptions] = useState([]);
@@ -204,82 +209,74 @@ const CreateProductForm = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              id="outlined-multiline-static"
-              label="Description"
-              multiline
-              name="description"
-              rows={3}
-              onChange={handleChange}
-              value={productData.description}
-            />
-          </Grid>
 
-          {productData.topLevelCategory === "Clothing" && (
-            productData.size.map((size, index) => (
-              <Grid container item spacing={3} key={index}>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    label="Size Name"
-                    name="name"
-                    value={size.name}
-                    onChange={(event) => handleSizeChange(event, index)}
-                    required
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    label="Quantity"
-                    name="size_quantity"
-                    type="number"
-                    onChange={(event) => handleSizeChange(event, index)}
-                    required
-                    fullWidth
-                  />
-                </Grid>
-              </Grid>
-            ))
-          )}
-
-          {productData.topLevelCategory === "Furniture" && (
+          {/* Size inputs for Decorative Touches, Jewels, and Gifts */}
+          {(productData.topLevelCategory === "Decorative Touches" ||
+            productData.topLevelCategory === "Gifts" ||
+            productData.secondLevelCategory === "Necklaces" ||
+            productData.secondLevelCategory === "Bracelets") && (
             <>
               <Grid item xs={12} sm={4}>
                 <TextField
-                  label="Height in feet"
-                  name="height"
-                  value={productData.height}
-                  onChange={handleChange}
-                  required
-                  fullWidth
-                  type="number"
-                />
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <TextField
-                  label="Length in feet"
+                  label="Length"
                   name="length"
                   value={productData.length}
                   onChange={handleChange}
-                  required
                   fullWidth
                   type="number"
                 />
               </Grid>
               <Grid item xs={12} sm={4}>
                 <TextField
-                  label="Width in feet"
+                  label="Width"
                   name="width"
                   value={productData.width}
                   onChange={handleChange}
-                  required
                   fullWidth
                   type="number"
                 />
               </Grid>
+              {productData.topLevelCategory === "Decorative Touches" && (
+                <Grid item xs={12} sm={4}>
+                  <TextField
+                    label="Height"
+                    name="height"
+                    value={productData.height}
+                    onChange={handleChange}
+                    fullWidth
+                    type="number"
+                  />
+                </Grid>
+              )}
+              <Grid item xs={12} sm={4}>
+                <FormControl fullWidth>
+                  <InputLabel>Unit</InputLabel>
+                  <Select
+                    name="unit"
+                    value={productData.unit}
+                    onChange={handleChange}
+                    label="Unit"
+                  >
+                    <MenuItem value="feet">Feet</MenuItem>
+                    <MenuItem value="inches">Inches</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
             </>
+          )}
+
+          {/* Size input specifically for Rings */}
+          {productData.secondLevelCategory === "Rings" && (
+            <Grid item xs={12} sm={4}>
+              <TextField
+                label="Ring Size"
+                name="ringSize"
+                value={productData.ringSize}
+                onChange={handleChange}
+                fullWidth
+                type="number"
+              />
+            </Grid>
           )}
 
           <Grid item xs={12}>

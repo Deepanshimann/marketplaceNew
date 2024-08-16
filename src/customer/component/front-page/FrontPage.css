@@ -15,7 +15,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
+    padding: 1rem;
 }
 
 .left {
@@ -32,19 +32,6 @@
 
 .portfolio-card {
     background-color: #1f2937; /* Background color for the card */
-    /* padding: 0.5rem; */
     border-radius: 0.5rem;
-    margin-top: 5.5rem; /* Rounded corners for the card */
+    margin-top: 0;
 }
-/* button{
-    background-color: #2DD4BF;
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-    font-weight: 800;
-    font-family: 'Gilroy', sans-serif;
-    text-transform: uppercase;
-    padding: 10px ;
-    border-radius: 50px;
-    cursor: pointer;
-} */

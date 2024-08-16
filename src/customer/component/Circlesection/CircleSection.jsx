@@ -9,8 +9,8 @@ const CircleSection = () => {
   ];
 
   return (
-    <div className='text-center pb-24'>
-        <h1 className='mt-20 text-7xl text-[#252F3F] my-20'>Explore More!</h1>
+    <div className='text-center pb-44'>
+        <h1 className='mt-36 pt-10 text-8xl text-[#252F3F] my-28'>Explore More!</h1>
     <div className="flex  px-10 justify-between space-x-5  ">  
       {items.map((item, index) => (
         <a

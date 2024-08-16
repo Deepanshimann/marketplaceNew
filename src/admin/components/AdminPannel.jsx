@@ -2,13 +2,15 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Admin from './Admin';
-import AdminNav from './AdminNav/AdminNav';
+import FaqSection from '../../customer/component/FAQ/Faq'; // Corrected import statement
+import Footer from '../../customer/component/Footer/Footer';
 
 function AdminPannel() {
   return (
     <div className="App">
-        <AdminNav/>
      <Admin/>
+     <FaqSection />
+     <Footer/>
     </div>
   );
 }

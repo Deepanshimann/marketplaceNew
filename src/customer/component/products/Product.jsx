@@ -108,7 +108,7 @@ useEffect(() => {
   const [minPrice, maxPrice] = priceValue == null ? [0, 1000] : priceValue.split("-").map(Number);
 
   const data = {
-    category: params.levelThree,
+    category: params.secondlevel,
     colors: colorValue || [],
     sizes: sizeValue || [],
     minPrice: minPrice || 0,
@@ -116,12 +116,12 @@ useEffect(() => {
     minDiscount: discount || 0,
     sort: sortValue || "price_low",
     pageNumber: pageNumber,
-    pageSize: 8,
+    pageSize: 12,
     stock: stock
 }
 dispatch(findProducts(data))
 }, [
-  params.item,
+  params.toplevel,
   colorValue,
   sizeValue,
   priceValue,

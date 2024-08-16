@@ -18,13 +18,14 @@ html, body {
 
 nav {
   /* top: 0; */
+  /* position: fixed; */
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 5.5rem;
+  height: 12vh;
   padding: 2vw 2vw;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   z-index: 10;
   background-color: #F3F4F6;
   /* margin-bottom: 1rem; */
@@ -32,7 +33,7 @@ nav {
 }
 
 nav h1 {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 900;
   line-height: 2.25rem;
 }
@@ -41,7 +42,7 @@ nav h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 3.2vw;
+  gap: 3.1vw;
   padding: 2vh 2vh;
 position: relative;
   z-index: 20;
@@ -81,7 +82,7 @@ position: relative;
   min-width: 150px; /* Ensures the dropdown has a minimum width */
 }
 .nav-part2 h4 {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   text-transform: uppercase;
   font-weight: 600;
   cursor: pointer;
