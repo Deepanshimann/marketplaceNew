@@ -54,11 +54,14 @@ export default function Admin() {
     }
   }, [auth.user, handleCloseAuthModal, navigate]);
 
+  const [loggedOut, setLoggedOut] = useState(false);
+
   const handleLogout = useCallback(() => {
     dispatch(logout());
     localStorage.removeItem("jwt");
-    navigate('/');
-  }, [dispatch, navigate]);
+    setLoggedOut(true); // Trigger a re-render
+  }, [dispatch]);
+  
 
   const handleGuidelineClick = () => {
     navigate('/guidelines');
@@ -68,6 +71,13 @@ export default function Admin() {
     setIsAdminEntered(true); // Set admin mode to entered
   };
 
+  const handleKeyDown = (e, action) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      action();
+    }
+  };
+
   const isNewUser = products.length === 0 && orders.length === 0 && customers.length === 0;
 
   return (
@@ -75,19 +85,56 @@ export default function Admin() {
       <CssBaseline />
       <div className="navbar">
         <nav>
-          <h1 onClick={() => navigate('/')} className="navbar-title">Vintage Store</h1>
+          <h1 onClick={() => navigate('/')} 
+          className="navbar-title"
+          tabIndex="0"
+          onKeyDown={(e) => handleKeyDown(e, () => navigate('/'))}
+           >
+            Vintage Store</h1>
+
           <div className="nav-links">
-            <h4 onClick={() => navigate('/admin/products')}>Products</h4>
-            <h4 onClick={() => navigate('/admin/customers')}>Customers</h4>
-            <h4 onClick={() => navigate('/admin/orders')}>Orders</h4>
-            <h4 onClick={() => navigate('/admin/product/create')}>Add Product</h4>
-            <h4 onClick={() => navigate('/contact-us')}>Contact Us</h4>
-            <h4 onClick={() => navigate('/help-center')}>Help</h4>
+            <h4 onClick={() =>
+               navigate('/admin/products')}
+               tabIndex="0"
+               onKeyDown={(e) => handleKeyDown(e, () => navigate('/admin/products'))}//when navigating through keyboard
+               >Products</h4>
+
+            <h4 onClick={() =>
+               navigate('/admin/customers')}
+               tabIndex="0"
+               onKeyDown={(e) => handleKeyDown(e, () => navigate('/admin/customers'))}
+               >Customers</h4>
+
+            <h4 onClick={() =>
+               navigate('/admin/orders')}
+               tabIndex="0"
+               onKeyDown={(e) => handleKeyDown(e, () => navigate('/admin/orders'))}
+               >Orders</h4>
+
+            <h4 onClick={() => 
+              navigate('/admin/product/create')}
+              tabIndex="0"
+              onKeyDown={(e) => handleKeyDown(e, () => navigate('/admin/product/create'))}
+              >Add Product</h4>
+
+            <h4 onClick={() => 
+              navigate('/contact-us')}
+              tabIndex="0"
+              onKeyDown={(e) => handleKeyDown(e, () => navigate('/contact-us'))}
+              >Contact Us</h4>
+
+            <h4 onClick={() => 
+              navigate('/help-center')}
+              tabIndex="0"
+              onKeyDown={(e) => handleKeyDown(e, () => navigate('/help-center'))}
+              >Help</h4>
             {auth.user ? (
               <>
                 <Avatar
                   className="text-white"
                   onClick={handleLogout}
+                  tabIndex="0"
+                  onKeyDown={(e) => handleKeyDown(e, handleLogout)}
                   sx={{
                     bgcolor: deepPurple[500],
                     color: "white",
@@ -96,10 +143,16 @@ export default function Admin() {
                 >
                   {auth.user.firstName[0].toUpperCase()}
                 </Avatar>
-                <h4 onClick={handleLogout}>Logout</h4>
+                <h4 onClick={handleLogout}
+                 tabIndex="0"
+                 onKeyDown={(e) => handleKeyDown(e, handleLogout)}
+                >Logout</h4>
               </>
             ) : (
-              <h4 onClick={() => handleOpenAuthModal('login')}>Sign In</h4>
+              <h4 onClick={() => handleOpenAuthModal('login')}
+              tabIndex="0"
+              onKeyDown={(e) => handleKeyDown(e, () => handleOpenAuthModal('login'))}
+              >Sign In</h4>
             )}
           </div>
         </nav>

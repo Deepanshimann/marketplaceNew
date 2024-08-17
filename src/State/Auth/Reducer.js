@@ -2,7 +2,7 @@ import {
     REGISTER_REQUEST,
     REGISTER_SUCCESS,
     REGISTER_FAILURE,
-    LOGIN_REQUEST,
+    LOGIN_REQUEST,  
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
     GET_USER_REQUEST,
@@ -19,11 +19,11 @@ import {
   
   const authReducer = (state = initialState, action) => {
     switch (action.type) {
-      // case REGISTER_REQUEST:
-      // case LOGIN_REQUEST:
-      //   return { ...state, isLoading: true, error: null };
-      // case REGISTER_SUCCESS:
-      //   return { ...state, isLoading: false };
+    case REGISTER_REQUEST:
+      case LOGIN_REQUEST:
+        return { ...state, isLoading: true, error: null };
+      case REGISTER_SUCCESS:
+        return { ...state, isLoading: false };
       // case REGISTER_FAILURE:
       // case LOGIN_FAILURE:
       //   return { ...state, isLoading: false, error: action.payload };
@@ -36,9 +36,9 @@ import {
         return { ...state, isLoading: false, user: action.user };
       // case GET_USER_FAILURE:
       //   return { ...state, isLoading: false, error: action.payload };
-      //   case LOGOUT:
-      //     localStorage.removeItem("jwt");
-      //     return { ...state, jwt: null, user: null };
+        case LOGOUT:
+          localStorage.removeItem("jwt");
+          return { ...state, jwt: null, user: null };
       default:
         return state;
     }

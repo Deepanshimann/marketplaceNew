@@ -18,8 +18,10 @@ useEffect(()=>{
   if(jwt){
     dispatch(getUser(jwt))
   }
-
 },[dispatch, jwt])
+
+
+
 
 
   useEffect(() => {
@@ -36,10 +38,11 @@ useEffect(()=>{
       email: data.get("email"),
       password: data.get("password"),
 phoneNumber:data.get("phoneNumber"),
-role:data.get("role")
+
     }
     console.log("user data",userData);
-    dispatch(register(userData))
+    
+    dispatch(register(userData),navigate)
   
   };
 
@@ -89,7 +92,7 @@ role:data.get("role")
               type="password"
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} >
             <TextField
               required
               id="phoneNumber"
@@ -98,17 +101,6 @@ role:data.get("role")
               fullWidth
               autoComplete="given-number"
               type="phoneNumber"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="role"
-              name="role"
-              label="role"
-              fullWidth
-              autoComplete="given-role"
-              type="role"
             />
           </Grid>
           <Grid item xs={12}>

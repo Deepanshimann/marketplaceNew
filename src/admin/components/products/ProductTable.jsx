@@ -46,10 +46,12 @@ import {
   
   
     const handlePaginationChange = (event, value) => {
-      searchParams.set("page", value-1);
+      searchParams.set("page", value - 1);  // Page numbers are usually 0-indexed in APIs
       const query = searchParams.toString();
       navigate({ search: `?${query}` });
+      window.scrollTo(0, 0);
     };
+    
   
     useEffect(() => {
       // setFilterValue({ availability, category, sort });
@@ -61,7 +63,7 @@ import {
         maxPrice: 100000,
         minDiscount: 0,
         sort: sort || "price_low",
-        pageNumber:page || 1,
+        pageNumber:page || 0,
         pageSize: 10,
         stock: availability,
       };
@@ -218,24 +220,16 @@ import {
           </TableContainer>
         </Card>
         <Card className="mt-2 border">
-          {/* <Pagination
-            className="py-5 border w-auto"
-            size="large"
-            count={10}
-            color="primary"
-            onChange={handlePaginationChange}
-          /> */}
-  
-          <div className="mx-auto px-4 py-5 flex justify-center shadow-lg rounded-md">
-            <Pagination
-              count={customersProduct.products?.totalPages}
-              color="primary"
-              className=""
-              onChange={handlePaginationChange}
-              // value={page}
-            />
-          </div>
-        </Card>
+  <div className="mx-auto px-4 py-5 flex justify-center shadow-lg rounded-md">
+    <Pagination
+      count={customersProduct.products?.totalPages} // Ensure this is the total number of pages
+      page={parseInt(page || 1)} // Ensure this is the current page
+      color="primary"
+      onChange={handlePaginationChange}
+    />
+  </div>
+</Card>
+
       </Box>
     );
   };
