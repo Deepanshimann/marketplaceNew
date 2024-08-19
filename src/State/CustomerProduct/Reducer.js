@@ -84,7 +84,7 @@ import {
             error: null,
           };
         case DELETE_PRODUCT_SUCCESS:
-          console.log("dlete ",state.products)
+          console.log("Delete ",state.products)
           return {
             ...state,
             loading: false,

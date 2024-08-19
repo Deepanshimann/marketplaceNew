@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Box, Avatar, Toolbar, CssBaseline, Button, Typography } from "@mui/material";
+import { Box, Avatar, CssBaseline } from "@mui/material";
 import { useNavigate, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useTheme } from "@mui/material/styles";
@@ -13,20 +13,20 @@ import ProductsTable from "./products/ProductTable";
 import OrdersTable from "./ordersTable/OrderTable";
 import Customers from "./customers/CustomerTable";
 import './Admin.css';
-import AdminImage from '/images/adultmoney1.jpg'; // Correct import
+import AdminImage from '/images/adultmoney1.jpg';
 
 export default function Admin() {
   const [openAuthModal, setOpenAuthModal] = useState(false);
   const [modalType, setModalType] = useState('login');
-  const [isAdminEntered, setIsAdminEntered] = useState(false); // New state to track if admin mode is entered
+  const [isAdminEntered, setIsAdminEntered] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
   const { auth } = useSelector((store) => store);
-  const products = []; // Simulating no products. Replace this with your actual products state.
-  const orders = [];   // Simulating no orders. Replace this with your actual orders state.
-  const customers = []; // Simulating no customers. Replace this with your actual customers state.
+  const products = [];
+  const orders = [];
+  const customers = [];
   const jwt = localStorage.getItem("jwt");
 
   const handleOpenAuthModal = useCallback((type) => {
@@ -59,16 +59,15 @@ export default function Admin() {
   const handleLogout = useCallback(() => {
     dispatch(logout());
     localStorage.removeItem("jwt");
-    setLoggedOut(true); // Trigger a re-render
+    setLoggedOut(true);
   }, [dispatch]);
-  
 
   const handleGuidelineClick = () => {
     navigate('/guidelines');
   };
 
   const handleEnterAdminClick = () => {
-    setIsAdminEntered(true); // Set admin mode to entered
+    setIsAdminEntered(true);
   };
 
   const handleKeyDown = (e, action) => {
@@ -94,9 +93,15 @@ export default function Admin() {
 
           <div className="nav-links">
             <h4 onClick={() =>
+               navigate('/admin')}
+               tabIndex="0"
+               onKeyDown={(e) => handleKeyDown(e, () => navigate('/admin'))}// Dashboard link
+               >Dashboard</h4>
+
+            <h4 onClick={() =>
                navigate('/admin/products')}
                tabIndex="0"
-               onKeyDown={(e) => handleKeyDown(e, () => navigate('/admin/products'))}//when navigating through keyboard
+               onKeyDown={(e) => handleKeyDown(e, () => navigate('/admin/products'))}
                >Products</h4>
 
             <h4 onClick={() =>
@@ -115,13 +120,13 @@ export default function Admin() {
               navigate('/admin/product/create')}
               tabIndex="0"
               onKeyDown={(e) => handleKeyDown(e, () => navigate('/admin/product/create'))}
-              >Add Product</h4>
+              >Create</h4>
 
             <h4 onClick={() => 
               navigate('/contact-us')}
               tabIndex="0"
               onKeyDown={(e) => handleKeyDown(e, () => navigate('/contact-us'))}
-              >Contact Us</h4>
+              >Contact</h4>
 
             <h4 onClick={() => 
               navigate('/help-center')}

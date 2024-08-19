@@ -12,10 +12,10 @@ const categories = {
   "Printed Media": ["Fiction", "Biographies", "Spiritual", "Story Collections"],
   Electronics: ["Entertainment", "Computing", "Personal Gadgets", "Mobile Devices"],
   Furniture: ["Living Room", "Bedroom", "Dining Room", "Office"],
-  Gifts: ["For Him","For Her"], // New Category
+  Gifts: ["For Him", "For Her"], // New Category
   Jewels: ["Rings", "Necklaces", "Bracelets"], // Updated Category
   "Decorative Touches": ["Wall Art", "Vases", "Candles & Candleholders", "Throw Pillows", "Rugs", "Decorative Lights"], // New Category
-  "Treasures for Little Ones": ["For Him","For Her"], // New Category
+  "Treasures for Little Ones": ["For Him", "For Her"], // New Category
 };
 
 const initialSizes = [
@@ -32,7 +32,7 @@ const CreateProductForm = () => {
     imageUrl: "",
     brand: "",
     title: "",
-    description: "",
+    description: "", // New description field
     color: "",
     discountedPrice: "",
     price: "",
@@ -68,8 +68,7 @@ const CreateProductForm = () => {
   };
 
   const handleSizeChange = (e, index) => {
-    let { name, value } = e.target;
-    name === "size_quantity" ? (name = "quantity") : (name = e.target.name);
+    const { name, value } = e.target;
 
     const sizes = [...productData.size];
     sizes[index][name] = value;
@@ -125,6 +124,17 @@ const CreateProductForm = () => {
               onChange={handleChange}
             />
           </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Description" // New description field
+              name="description"
+              value={productData.description}
+              onChange={handleChange}
+              multiline
+              rows={3}
+            />
+          </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
@@ -168,8 +178,8 @@ const CreateProductForm = () => {
             <TextField
               fullWidth
               label="Discount Percentage"
-              name="discountPersent"
-              value={productData.discountPersent}
+              name="discountPercent"
+              value={productData.discountPercent}
               onChange={handleChange}
               type="number"
             />
@@ -209,6 +219,27 @@ const CreateProductForm = () => {
               </Select>
             </FormControl>
           </Grid>
+
+          {/* Size inputs for Clothing */}
+          {productData.topLevelCategory === "Clothing" && (
+            <Grid item xs={12}>
+              <Typography variant="h6">Sizes</Typography>
+              <Grid container spacing={2}>
+                {productData.size.map((size, index) => (
+                  <Grid item xs={6} sm={4} key={index}>
+                    <TextField
+                      fullWidth
+                      label={`${size.name} Quantity`}
+                      name="quantity"
+                      value={size.quantity}
+                      onChange={(e) => handleSizeChange(e, index)}
+                      type="number"
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            </Grid>
+          )}
 
           {/* Size inputs for Decorative Touches, Jewels, and Gifts */}
           {(productData.topLevelCategory === "Decorative Touches" ||

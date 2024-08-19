@@ -34,7 +34,7 @@ const OrderSummary = () => {
 
   const handleCreatePayment = async () => {
     const data = { orderId: order.order?._id, jwt };
-    const paymentIntentData = await dispatch(createPayment(data));
+    const paymentIntentData = dispatch(createPayment(data));
 
     if (paymentIntentData && paymentIntentData.clientSecret) {
       // Set the clientSecret to the state
@@ -46,6 +46,8 @@ const OrderSummary = () => {
     <Elements stripe={stripePromise}>
       <div className="mt-10">
         <div className="lg:grid grid-cols-3 pt-5 relative">
+       
+
           <div className="col-span-2 pr-6">
             {order.order?.orderItems.map((item) => (
               <CartItems item={item} showButton={false} key={item._id} />

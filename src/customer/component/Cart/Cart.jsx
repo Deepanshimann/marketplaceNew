@@ -43,22 +43,22 @@ const Cart = () => {
             </div>
             <div className='sticky top-0 h-[100vh] mt-5 lg:mt-0'>
               <div className='border p-5'>
-                <p className='uppercase font-bold opacity-60 pb-4'>Price details</p>
+                <p className='uppercase font-bold opacity-60  text-xl pb-4'>Price details</p>
                 <hr />
                 <div className='space-y-3 font-semibold'>
-                  <div className='flex justify-between pt-3 text-black'>
+                  <div className='flex justify-between pt-3 text-xl text-black'>
                     <span>Price of ({cart.cart?.totalItem} items)</span>
                     <span>&pound; {cart.cart?.totalPrice}</span>
                   </div>
-                  <div className='flex justify-between pt-3 text-black'>
+                  <div className='flex justify-between pt-3  text-xl text-black'>
                     <span>Discount</span>
                     <span>&pound; {cart.cart?.discount}</span>
                   </div>
-                  <div className='flex justify-between pt-3 text-black'>
+                  <div className='flex justify-between pt-3  text-xl text-black'>
                     <span>Delivery Charges</span>
                     <span className='text-green-700'>Free</span>
                   </div>
-                  <div className='flex justify-between pt-3 text-black'>
+                  <div className='flex justify-between pt-3  text-xl text-black'>
                     <span>Total Amount</span>
                     <span>&pound; {cart.cart?.totalDiscountedPrice}</span>
                   </div>
