@@ -36,7 +36,7 @@ const CreateProductForm = () => {
     color: "",
     discountedPrice: "",
     price: "",
-    discountPersent: "",
+    discountPercent: "",
     size: initialSizes,
     quantity: "",
     topLevelCategory: "",

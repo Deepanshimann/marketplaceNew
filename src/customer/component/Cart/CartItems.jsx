@@ -21,21 +21,21 @@ const CartItems = ({item,showButton}) => {
   
   return (
     
-      <div className='p-5 shadow-lg border rounded-md'>
+      <div className='p-5 mb-6 shadow-lg border rounded-md'>
       <div className='flex items-center'>
 <div className='w-[7rem] h-[7rem] lg:w-[12rem] lg:h-[13rem]'>
 <img className='w-full h-full object-cover object-top' src={item?.product?.imageUrl} alt="Product Image"/>
 </div>
 
 <div className='ml-5 space-y-1'>
-<p className='font-semibold'>{item?.product?.title}</p>
-<p className='opacity-90'>Size:{item?.size}</p>
-<p className='opacity-80 mt-2'>Seller: {item?.product?.brand}</p>
+<p className='font-semibold text-2xl'>{item?.product?.title}</p>
+<p className='opacity-90 text-2xl'>Size:{item?.size}</p>
+<p className='opacity-80 mt-2 text-2xl'>Seller: {item?.product?.brand}</p>
 <div>
 <div className='flex space-x-5 items-center text-lg lg:text-xl text-gray-900 mt-6'>
-                <p className='font-semibold'>&pound;{item?.product?.price}</p>
+                <p className='font-semibold text-2xl'>&pound;{item?.product?.price}</p>
                 <p className='opacity-50 line-through'>&pound;{item?.product?.discountedPrice}</p>
-                <p className='text-green-600 font-semibold'>{item?.product?.discountPercent}</p>
+                <p className='text-green-600 font-semibold'>{item?.product?.discountPercent} % Off</p>
             </div>
 </div>
 <div className='lg:flex items-center lg:space-x-10 pt-4'>

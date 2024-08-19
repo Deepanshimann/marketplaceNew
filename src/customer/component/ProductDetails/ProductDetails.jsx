@@ -6,10 +6,7 @@ import SecondSectionCard from '../SecondSectionCard/SecondSectionCard'
 import MenKurta from '../../../Data/MenKurta'
 import {Grid, Box,Button } from '@mui/material'
 import { useParams } from 'react-router-dom';
-
-// import LinearProgress from '@mui/joy/LinearProgress';
 import { useEffect, useState } from 'react'
-// import { StarIcon } from '@heroicons/react/20/solid'
 import { Radio, RadioGroup } from '@headlessui/react'
 import Rating from '@mui/material/Rating';
 import { LinearProgress } from '@mui/material';
@@ -17,32 +14,56 @@ import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import { findProductById } from '../../../State/CustomerProduct/Action';
 import { addItemToCart } from '../../../State/Cart/Action';
+import SizeGuide from './SizeGuide';
+import { getAllReviews } from '../../../State/Review/Action';
+const reviews = { href: '#', average: 4, totalCount: 117 }
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
+
+export default function ProductDetails() {
+ const [selectedSize, setSelectedSize] = useState('');
+const navigate=useNavigate();
+const params=useParams();
+const { productId } = useParams();
+const dispatch=useDispatch();
+const jwt = localStorage.getItem("jwt");
+//geting product from store
+const { customersProduct,review } = useSelector((store) => store);
+
+const [openSizeGuide, setOpenSizeGuide] = useState(false);
+
+const handleOpenSizeGuide = () => {
+  setOpenSizeGuide(true);
+};
+
+const handleCloseSizeGuide = () => {
+  setOpenSizeGuide(false);
+};
+
+const handleSubmit = () => {
+  const data = { productId, size: selectedSize.name };
+  dispatch(addItemToCart({ data, jwt }));
+  navigate("/cart");
+};
+
+useEffect(()=>{
+  const data={productId:productId,jwt}
+dispatch(findProductById(data))
+dispatch(getAllReviews(productId));
+},[productId])
+
+
 const product = {
-  name: 'Basic Tee 6-Pack',
-  price: '$192',
+  name: customersProduct.product?.title,
+  price: customersProduct.product?.price,
   href: '#',
   breadcrumbs: [
-    { id: 1, name: 'Men', href: '#' },
-    { id: 2, name: 'Clothing', href: '#' },
+    { id: 1, name:  customersProduct.product?.topLevelCategory,  },
+    { id: 2, name: customersProduct.product?.secondLevelCategory, },
   ],
-  images: [
-    {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg',
-      alt: 'Two each of gray, white, and black shirts laying flat.',
-    },
-    {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg',
-      alt: 'Model wearing plain black basic tee.',
-    },
-    {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg',
-      alt: 'Model wearing plain gray basic tee.',
-    },
-    {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg',
-      alt: 'Model wearing plain white basic tee.',
-    },
-  ],
+  
   colors: [
     { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
     { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
@@ -56,53 +77,13 @@ const product = {
     { name: 'XL', inStock: true },
     { name: '2XL', inStock: true },
   ],
-  description:
-    'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
-  highlights: [
-    'Hand cut and sewn locally',
-    'Dyed with our proprietary colors',
-    'Pre-washed & pre-shrunk',
-    'Ultra-soft 100% cotton',
-  ],
-  details:
-    'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
+  images: customersProduct.product?.images || [],
+  description: customersProduct.product?.description,
 }
-const reviews = { href: '#', average: 4, totalCount: 117 }
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
-
-export default function ProductDetails() {
-
-  const [selectedSize, setSelectedSize] = useState('');
-const navigate=useNavigate();
-const params=useParams();
-const { productId } = useParams();
-const dispatch=useDispatch();
-const jwt = localStorage.getItem("jwt");
-//geting product from store
-const { customersProduct } = useSelector((store) => store);
-
-// const handleAddToCart=()=>{
-//   const data={productId:params.productId,size:selectedSize.name}
-//   dispatch(addItemToCart(data));
-//   navigate("/cart");
-// }
-const handleSubmit = () => {
-  const data = { productId, size: selectedSize.name };
-  dispatch(addItemToCart({ data, jwt }));
-  navigate("/cart");
-};
-
-useEffect(()=>{
-  const data={productId:productId,jwt}
-dispatch(findProductById(data))
-},[productId])
 
   return (
-    <div className="bg-white pt-20 ">
-      <div className="pt-10">
+    <div className="bg-white  ">
+      <div className="pt-6">
         <nav aria-label="Breadcrumb">
           <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4  sm:px-6 lg:max-w-7xl lg:px-8">
             {product.breadcrumbs.map((breadcrumb) => (
@@ -125,19 +106,19 @@ dispatch(findProductById(data))
               </li>
             ))}
             <li className="text-sm">
-              <a href={product.href} aria-current="page" className="font-medium text-xl text-gray-500 hover:text-gray-600">
+              <a href={product.href} aria-current="page" className="font-medium text-2xl text-gray-500 hover:text-gray-600">
                 {product.name}
               </a>
             </li>
           </ol>
         </nav>
-<section className='grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-10 px-4 pt-28'>
+<section className='grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-10 px-4 pt-12'>
      {/* Image gallery */}
      <div className="flex flex-col items-center">
           <div className="overflow-hidden rounded-lg max-w-[30rem] max-h-[35rem]">
             <img
           src={ customersProduct.product?.imageUrl}
-          alt={product.images[0].alt}
+          alt={product.images[0]?.alt}
               className="h-full w-full object-cover object-center"
             />
           </div>
@@ -155,23 +136,23 @@ dispatch(findProductById(data))
    <div className="lg:col-span-1 max-auto max-w-2xl px-4 pb-16 sm:px-6 lg:max-w-7xl lg:px-8 lg:pb-24">
           <div className="lg:col-span-2 ">
             <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{customersProduct.product?.title}  </h1>
-            <h1 className='text-lg lg:text-xl text-gray-900 opacity-60 pt-1'>
+            <h1 className='text-lg lg:text-2xl text-gray-900 opacity-60 pt-1'>
             {customersProduct.product?.brand}  
             </h1>
           </div>
 
           {/* Options */}
-          <div className="mt-4 lg:row-span-3 lg:mt-0">
+          <div className=" lg:row-span-3 lg:mt-10">
             <h2 className="sr-only">Product information</h2>
-            <div className='flex space-x-5 items-center text-lg lg:text-xl text-gray-900 mt-6'>
+            <div className='flex space-x-5 items-center text-lg lg:text-2xl text-gray-900 mt-6'>
                 <p className='font-semibold'>&pound; {customersProduct.product?.discountedPrice} </p>
                 <p className='opacity-50 line-through'> &pound;{customersProduct.product?.price}</p>
-                <p className='text-green-600 font-semibold'> {customersProduct.product?.discountPercent} % Off</p>
+                <p className='text-teal-600 font-semibold'> {customersProduct.product?.discountPercent} % Off</p>
             </div>
 
             {/* Reviews */}
-            <div className="mt-6">
-              <h3 className="sr-only">Reviews</h3>
+            <div className="mt-12">
+              <h3 className="text-xl font-bold text-blue-900">Reviews</h3>
               <div className='flex items-center space-x-3'>
               <Typography component="legend"></Typography>
       <Rating
@@ -182,8 +163,8 @@ dispatch(findProductById(data))
           setValue(newValue);
         }}
       />
-      <p className='opacity-50 text-sm'>500 Ratings</p>
-      <p className='ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500'>380 Reviews</p>
+      <p className='opacity-80 text-lg'>500 Ratings</p>
+      <p className='ml-3  text-lg font-bold text-teal-600 hover:text-red-700'>{reviews.totalCount} Reviews</p>
               </div>
             
             </div>
@@ -192,10 +173,16 @@ dispatch(findProductById(data))
             {/* Sizes */}
               <div className="mt-10">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-medium text-gray-900">Size</h3>
-                  <a href="#" className="text-2xl font-semibold text-pink-600 hover:text-indigo-500">
+                  <h3 className="text-2xl font-bold text-gray-900">Size</h3>
+                  <Button onClick={handleOpenSizeGuide} 
+                  sx={{
+                    fontWeight:"bold",
+                    fontSize:"1.2rem",
+                    color:"red",
+                  }}
+                  >
                     Size guide
-                  </a>
+                  </Button>
                 </div>
 
                 <fieldset aria-label="Choose a size" className="mt-4">
@@ -245,7 +232,7 @@ dispatch(findProductById(data))
 
               <button onClick={handleSubmit}
                 type="submit"
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-pink-600 px-8 py-3 text-2xl font-semibold text-white hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
+                className="mt-10 flex w-full items-center justify-center  border border-transparent bg-[#2DD4BF] rounded-full px-8 py-3 text-2xl font-semibold text-black hover:bg-[#22B8A1] focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
               >
                 Add to Bag
               </button>
@@ -255,32 +242,10 @@ dispatch(findProductById(data))
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
             {/* Description and details */}
             <div>
-              <h3 className="sr-only">Description</h3>
+              <h3 className="font-bold text-2xl mb-2">Description</h3>
 
               <div className="space-y-6">
-                <p className="text-base text-gray-900">{customersProduct.product?.description}</p>
-              </div>
-            </div>
-
-            <div className="mt-10">
-              <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
-
-              <div className="mt-4">
-                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                  {product.highlights.map((highlight) => (
-                    <li key={highlight} className="text-gray-400">
-                      <span className="text-gray-600">{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="mt-10">
-              <h2 className="text-sm font-medium text-gray-900">Details</h2>
-
-              <div className="mt-4 space-y-6">
-                <p className="text-sm text-gray-600">{product.details}</p>
+                <p className="text-xl text-gray-900">{customersProduct.product?.description}</p>
               </div>
             </div>
           </div>
@@ -293,7 +258,10 @@ dispatch(findProductById(data))
 <Grid container spacing={7}>
   <Grid item xs={7}>
 <div className='space-y-5'>
-  {[1,1,1].map((item)=><ReviewCard />)}
+
+  { review.reviews?.map((item, i) => (
+                    <ReviewCard item={item} />
+                  ))}
 </div>
   </Grid>
 <Grid item xs={5}>
@@ -363,7 +331,10 @@ dispatch(findProductById(data))
   {MenKurta.map((item)=><SecondSectionCard product={item} />)}
 </div>
     </section>
+     {/* Size Guide Modal */}
+     <SizeGuide open={openSizeGuide} handleClose={handleCloseSizeGuide} />
       </div>
     </div>
+   
   )
 }

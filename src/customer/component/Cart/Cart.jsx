@@ -30,7 +30,7 @@ const Cart = () => {
   const hasCartItems = cart.cartItems.length > 0;
 
   return (
-    <div className="pt-32 mb-12">
+    <div className="pt-14 mb-12">
       {isUserLoggedIn ? (
         hasCartItems ? (
           <div className="lg:grid grid-cols-3 lg:px-16 relative">
@@ -64,14 +64,21 @@ const Cart = () => {
                   </div>
                 </div>
                 <Button 
-                  onClick={handleCheckout} 
-                  type="submit" 
-                  variant='contained' 
-                  className='w-full' 
-                  sx={{ px: "2rem", py: ".7rem", mt: "2rem", bgcolor: "rgb(239,90,130)" }}
-                >
-                  Checkout
-                </Button>
+         onClick={handleCheckout}
+         variant='contained'
+         className='w-full ' 
+         sx={{px:"2rem",
+          color:"black",
+          fontWeight:"bold",
+          py:".6rem",
+          mt:"2rem",
+          fontSize:"1.2rem",
+          bgcolor:"#2DD4BF",
+          borderRadius: "9999px", // Fully rounded button
+          '&:hover': {
+            bgcolor: "#22B8A1", // Darker shade for hover
+          },
+          }}>Checkout</Button>
               </div>
             </div>
           </div>
