@@ -482,7 +482,7 @@ dispatch(findProducts(data))
                   </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center h-full">
-                    <img src="../../../../public/images/questionmark  category.jpg" alt="No Products" className="h-96 w-auto" />
+                    <img src="/images/questionmark  category.jpg" alt="No Products" className="h-96 w-auto" />
                     <h2 className="text-4xl font-semibold text-gray-700 mt-4">There are no products in this category</h2>
                   </div>
                 )}

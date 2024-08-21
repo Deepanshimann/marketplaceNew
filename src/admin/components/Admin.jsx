@@ -104,11 +104,7 @@ export default function Admin() {
                onKeyDown={(e) => handleKeyDown(e, () => navigate('/admin/products'))}
                >Products</h4>
 
-            <h4 onClick={() =>
-               navigate('/admin/customers')}
-               tabIndex="0"
-               onKeyDown={(e) => handleKeyDown(e, () => navigate('/admin/customers'))}
-               >Customers</h4>
+         
 
             <h4 onClick={() =>
                navigate('/admin/orders')}
@@ -187,7 +183,6 @@ export default function Admin() {
     <Route path="/product/create" element={<CreateProductForm />} />
     <Route path="/products" element={<ProductsTable />} />
     <Route path="/orders" element={<OrdersTable />} />
-    <Route path="/customers" element={<Customers />} />
   </Routes>
 )}
       </Box>

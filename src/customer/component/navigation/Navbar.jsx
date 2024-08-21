@@ -127,13 +127,61 @@ export default function Navbar() {
     };
   }, []);
 
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   if (searchQuery.trim()) {
+  //     navigate(`/search?query=${searchQuery}`);
+  //     setSearchQuery('');
+  //   }
+  // };
+
   const handleSearch = (e) => {
     e.preventDefault();
+
     if (searchQuery.trim()) {
-      navigate(`/search?query=${searchQuery}`);
-      setSearchQuery('');
+        // Convert the search query to lowercase for case-insensitive search
+        const query = searchQuery.toLowerCase();
+
+        // Initialize an array to hold search results
+        let searchResults = [];
+
+        // Iterate over each category
+        navigation.categories.forEach((category) => {
+            // Check if the category name matches the search query
+            if (category.name.toLowerCase().includes(query)) {
+                searchResults.push({ category: category.id, item: null });
+            }
+
+            // Check if any items within the category match the search query
+            category.items.forEach((item) => {
+                if (item.toLowerCase().includes(query)) {
+                    searchResults.push({ category: category.id, item });
+                }
+            });
+        });
+
+        // If search results found, navigate to the appropriate page
+        if (searchResults.length > 0) {
+            // For this example, let's navigate to the first match
+            const firstResult = searchResults[0];
+
+            if (firstResult.item) {
+                // Navigate to the category and item
+                navigate(`/${firstResult.category}/${firstResult.item}`);
+            } else {
+                // Navigate to just the category
+                navigate(`/${firstResult.category}`);
+            }
+        } else {
+            // If no matches found, you can navigate to a "no results" page or show a message
+            navigate(`/no-results?query=${searchQuery}`);
+        }
+
+        // Clear the search query after search
+        setSearchQuery('');
     }
-  };
+};
+
 
   return (
     <div className="navbar">
