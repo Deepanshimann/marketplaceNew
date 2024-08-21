@@ -36,7 +36,7 @@ export const findProducts = (reqData) => async (dispatch) => {
     pageSize,
   } = reqData;
 
-  console.log("CATEGORY FOR API: ", category);
+  console.log("PAGE: ", pageNumber);
 
   try {
    
