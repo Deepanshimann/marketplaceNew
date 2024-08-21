@@ -41,6 +41,8 @@ const location=useLocation();
 const navigate=useNavigate();
 const params = useParams();
 
+console.log("params: ", params)
+
 
 const decodedQueryString=decodeURIComponent(location.search);
 const searchParams=new URLSearchParams(decodedQueryString);
@@ -108,7 +110,7 @@ useEffect(() => {
   const [minPrice, maxPrice] = priceValue == null ? [0, 1000] : priceValue.split("-").map(Number);
 
   const data = {
-    category: params.secondlevel,
+    category: params.item,
     colors: colorValue || [],
     sizes: sizeValue || [],
     minPrice: minPrice || 0,
@@ -121,7 +123,7 @@ useEffect(() => {
 }
 dispatch(findProducts(data))
 }, [
-  params.toplevel,
+  params,
   colorValue,
   sizeValue,
   priceValue,

@@ -90,7 +90,7 @@ export default function Navbar() {
     if (category === 'home') {
       navigate('/');
     } else if (category !== 'myprofile') {
-      navigate( { replace: true });
+      // navigate( { replace: true });
     }
   }, [navigate, activeCategory]);
 

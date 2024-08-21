@@ -1,6 +1,7 @@
 import React from 'react'
 import {Route,Routes} from 'react-router-dom';
-import AdminPannel from '../admin/components/AdminPannel'
+import AdminPannel from '../admin/components/AdminPannel';
+
 
 export const AdminRoutes = () => {
   return (
