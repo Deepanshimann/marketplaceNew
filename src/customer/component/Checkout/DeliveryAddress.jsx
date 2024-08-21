@@ -14,8 +14,8 @@ const DeliveryAddress = () => {
 
   const handleDeliverHereClick = (address) => {
     // Trigger the order creation with the selected address
-    const orderData = { address, navigate };
-    dispatch(createOrder(orderData));      
+    const orderData = { address, jwt:auth.token };
+    dispatch(createOrder({...orderData,navigate}));      
     console.log("Delivering to address: ", address);
   };
 
@@ -32,9 +32,9 @@ const DeliveryAddress = () => {
     };
 
     console.log("address", address);
-    const orderData = { address, navigate };
-    dispatch(createOrder(orderData));
-    console.log("adress from form ", orderData);
+    const orderData = { address,jwt:auth.token };
+    dispatch(createOrder({...orderData,navigate}));
+    console.log("adress from delivryform ", orderData);
   };
 
   return (
@@ -48,6 +48,7 @@ const DeliveryAddress = () => {
                 <Button 
                 onClick={() => handleDeliverHereClick(item)} 
                  variant='contained'
+                 type="submit"
                  sx={{px:"2rem",
                  color:"black",
                  fontWeight:"bold",
@@ -135,6 +136,7 @@ const DeliveryAddress = () => {
                 <Button 
          variant='contained'
          className='w-full ' 
+         type="submit" 
          sx={{px:"2rem",
           color:"black",
           fontWeight:"bold",

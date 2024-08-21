@@ -11,11 +11,11 @@ const categories = {
   Clothing: ["Men", "Women", "Kids"],
   "Printed Media": ["Fiction", "Biographies", "Spiritual", "Story Collections"],
   Electronics: ["Entertainment", "Computing", "Personal Gadgets", "Mobile Devices"],
-  Furniture: ["Living Room", "Bedroom", "Dining Room", "Office"],
-  Gifts: ["For Him", "For Her"], // New Category
-  Jewels: ["Rings", "Necklaces", "Bracelets"], // Updated Category
-  "Decorative Touches": ["Wall Art", "Vases", "Candles & Candleholders", "Throw Pillows", "Rugs", "Decorative Lights"], // New Category
-  "Treasures for Little Ones": ["For Him", "For Her"], // New Category
+  Furniture: ["Living Room", "Bedroom", "Dining Room", "Office"], 
+  Gifts: ["For Him", "For Her"], 
+  Jewels: ["Rings", "Necklaces", "Bracelets"], 
+  "Decorative Touches": ["Wall Art", "Vases", "Candles & Candleholders", "Throw Pillows", "Rugs", "Decorative Lights"], 
+  "Treasures for Little Ones": ["For Him", "For Her"], 
 };
 
 const initialSizes = [
@@ -32,11 +32,11 @@ const CreateProductForm = () => {
     imageUrl: "",
     brand: "",
     title: "",
-    description: "", // New description field
+    description: "",
     color: "",
     discountedPrice: "",
     price: "",
-    discountPercent: "",
+    discountPercent: "", // Remove manual input
     size: initialSizes,
     quantity: "",
     topLevelCategory: "",
@@ -44,7 +44,8 @@ const CreateProductForm = () => {
     height: "",
     length: "",
     width: "",
-    unit: "feet", // Default unit for measurements
+    unit: "feet", 
+    ringSize: "",
   });
 
   const [secondLevelOptions, setSecondLevelOptions] = useState([]);
@@ -53,23 +54,36 @@ const CreateProductForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProductData((prevState) => ({
-      ...prevState,
+    let updatedProductData = {
+      ...productData,
       [name]: value,
-    }));
+    };
+
+    if (name === "price" || name === "discountedPrice") {
+      const price = name === "price" ? parseFloat(value) : parseFloat(productData.price);
+      const discountedPrice = name === "discountedPrice" ? parseFloat(value) : parseFloat(productData.discountedPrice);
+
+      if (!isNaN(price) && !isNaN(discountedPrice) && price > 0) {
+        const discountPercent = ((price - discountedPrice) / price) * 100;
+        updatedProductData.discountPercent = discountPercent.toFixed(2); // Calculate discount percent
+      } else {
+        updatedProductData.discountPercent = ""; // Reset if values are not valid
+      }
+    }
+
+    setProductData(updatedProductData);
 
     if (name === "topLevelCategory") {
       setSecondLevelOptions(categories[value] || []);
       setProductData((prevState) => ({
         ...prevState,
-        secondLevelCategory: "", // Reset second-level category when top-level changes
+        secondLevelCategory: "",
       }));
     }
   };
 
   const handleSizeChange = (e, index) => {
     const { name, value } = e.target;
-
     const sizes = [...productData.size];
     sizes[index][name] = value;
     setProductData((prevState) => ({
@@ -83,7 +97,7 @@ const CreateProductForm = () => {
     dispatch(createProduct(productData))
       .then(() => {
         console.log("Product created successfully.");
-        navigate("/admin/products"); // Redirect to the products section after successful creation
+        navigate("/admin/products"); 
       })
       .catch((error) => {
         console.error("Error creating product:", error);
@@ -127,7 +141,7 @@ const CreateProductForm = () => {
           <Grid item xs={12}>
             <TextField
               fullWidth
-              label="Description" // New description field
+              label="Description"
               name="description"
               value={productData.description}
               onChange={handleChange}
@@ -182,6 +196,7 @@ const CreateProductForm = () => {
               value={productData.discountPercent}
               onChange={handleChange}
               type="number"
+              disabled // Disable this field because it's auto-calculated
             />
           </Grid>
           <Grid item xs={6} sm={4}>
@@ -209,7 +224,7 @@ const CreateProductForm = () => {
                 value={productData.secondLevelCategory}
                 onChange={handleChange}
                 label="Second Level Category"
-                disabled={!secondLevelOptions.length} // Disable if no options available
+                disabled={!secondLevelOptions.length}
               >
                 {secondLevelOptions.map((subcategory) => (
                   <MenuItem key={subcategory} value={subcategory}>
@@ -241,9 +256,10 @@ const CreateProductForm = () => {
             </Grid>
           )}
 
-          {/* Size inputs for Decorative Touches, Jewels, and Gifts */}
+          {/* Size inputs for Decorative Touches, Jewels, Gifts, and Furniture */}
           {(productData.topLevelCategory === "Decorative Touches" ||
             productData.topLevelCategory === "Gifts" ||
+            productData.topLevelCategory === "Furniture" || 
             productData.secondLevelCategory === "Necklaces" ||
             productData.secondLevelCategory === "Bracelets") && (
             <>
@@ -267,7 +283,8 @@ const CreateProductForm = () => {
                   type="number"
                 />
               </Grid>
-              {productData.topLevelCategory === "Decorative Touches" && (
+              {(productData.topLevelCategory === "Decorative Touches" ||
+                productData.topLevelCategory === "Furniture") && (
                 <Grid item xs={12} sm={4}>
                   <TextField
                     label="Height"
@@ -311,7 +328,25 @@ const CreateProductForm = () => {
           )}
 
           <Grid item xs={12}>
-            <Button variant="contained" sx={{ p: 1.8 }} className="py-20" size="large" type="submit">
+            <Button
+              variant="contained"
+              className="py-20"
+              size="large"
+              type="submit"
+              sx={{
+                px: "2rem",
+                color: "black",
+                fontWeight: "bold",
+                py: ".6rem",
+                mt: "2rem",
+                fontSize: "1.2rem",
+                bgcolor: "#2DD4BF",
+                borderRadius: "9999px", 
+                '&:hover': {
+                  bgcolor: "#22B8A1", 
+                },
+              }}
+            >
               Add New Product
             </Button>
           </Grid>

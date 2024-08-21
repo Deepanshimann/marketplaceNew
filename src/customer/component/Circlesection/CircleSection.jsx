@@ -1,31 +1,35 @@
 import React from 'react';
-
+import { useNavigate } from 'react-router-dom';
+import './Circlesection.css'
 const CircleSection = () => {
+  const navigate = useNavigate();
   const items = [
-    { label: 'Gifts For Them', imageUrl: '/images/giftcouple.jpg', link: '#' },
-    { label: 'Gems & Jewels', imageUrl: '/images/jwell.jpeg', link: '#' },
-    { label: 'Decorative Touches', imageUrl: '/images/maximalist-rainbow-rug-in-living-room.jpg', link: '#' },
-    { label: 'Treasures for Little Ones', imageUrl: '/images/grandma.jpg', link: '#' },
+    { label: 'Gifts For Them', imageUrl: '/images/giftcouple.jpg', link: '/gifts/for-them' },
+    { label: 'Gems & Jewels', imageUrl: '/images/jwell.jpeg', link: '/jewels/all' },
+    { label: 'Decorative Touches', imageUrl: '/images/maximalist-rainbow-rug-in-living-room.jpg', link: '/decorative-touches/all' },
+    { label: 'Treasures for Little Ones', imageUrl: '/images/grandma.jpg', link: '/treasure-for-little-ones/all' },
   ];
-
+  const handleItemClick = (link) => {
+    navigate(link);
+  };
   return (
-    <div className='text-center pb-44'>
-        <h1 className='mt-36 pt-10 text-8xl text-[#252F3F] my-28'>Explore More!</h1>
-    <div className="flex  px-10 justify-between space-x-5  ">  
-      {items.map((item, index) => (
-        <a
-          href={item.link}
-          key={index}
-          className="flex flex-col gap-3  mx-2 items-center text-center group"
-        >
+    <div className='section-container text-center pb-36'>
+      <h1 className='heading mt-36 pt-9 text-8xl  text-[#252F3F] my-24'>Explore More!</h1>
+      <div className="circles grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 px-10">
+        {items.map((item, index) => (
           <div
-            className="w-72 h-72 bg-cover bg-center rounded-full mb-2 transition-transform transform group-hover:scale-105"
-            style={{ backgroundImage: `url(${item.imageUrl})` }}
-          ></div>
-          <span className="text-3xl font-semibold">{item.label}</span>
-        </a>
-      ))}
-    </div>
+            key={index}
+            onClick={() => handleItemClick(item.link)}
+            className="flex flex-col items-center text-center group"
+          >
+            <div
+              className="w-72 h-72 bg-cover bg-center rounded-full mb-2 transition-transform transform group-hover:scale-105"
+              style={{ backgroundImage: `url(${item.imageUrl})` }}
+            ></div>
+            <span className="text-3xl font-semibold">{item.label}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

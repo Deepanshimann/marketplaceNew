@@ -35,3 +35,19 @@
     border-radius: 0.5rem;
     margin-top: 0;
 }
+@media (max-width: 692px){
+.main{
+    flex-direction: column;
+}
+.left{
+    width: fit-content;
+   margin-bottom: 2rem;
+}
+.right{
+    height: auto;
+    width: 60%;
+}
+.portfolio-container{
+    padding: 0 0 ;
+}
+}

@@ -56,7 +56,7 @@ const stock = searchParams.get("stock")
 const dispatch=useDispatch();
 const { customersProduct } = useSelector((store) => store);
 console.log("..fetching. from productjsx.",customersProduct);
-
+const hasProducts = customersProduct?.products?.content?.length > 0;
 const handleSortChange = (value) => {
   const searchParams = new URLSearchParams(location.search);
   searchParams.set("sort", value);
@@ -118,7 +118,7 @@ useEffect(() => {
     minDiscount: discount || 0,
     sort: sortValue || "price_low",
     pageNumber: pageNumber,
-    pageSize: 12,
+    pageSize: 6,
     stock: stock
 }
 dispatch(findProducts(data))
@@ -466,13 +466,31 @@ dispatch(findProducts(data))
               </form>
 
               {/* Product grid */}
-              <div className="lg:col-span-3 w-full">
+              {/* <div className="lg:col-span-3 w-full">
   <div className="flex flex-wrap justify-center">
     {customersProduct?.products && customersProduct.products?.content?.map((item)=>(
 <ProductCard product={item}/>
     ))} 
   </div>
-</div>
+</div> */}
+
+ {/* Product grid or No Products message */}
+ <div className="lg:col-span-3 w-full">
+                {hasProducts ? (
+                  <div className="flex flex-wrap justify-center">
+                    {customersProduct?.products?.content?.map((item) => (
+                      <ProductCard key={item._id} product={item} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center h-full">
+                    <img src="/images/questionmark  category.jpg" alt="No Products" className="h-96 w-auto" />
+                    <h2 className="text-4xl font-semibold text-gray-700 mt-4">There are no products in this category</h2>
+                  </div>
+                )}
+              </div>
+
+
             </div>
           </section>
           <section className='pagination-container   w-full px=[3.6rem]' >

@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCart } from '../../../State/Cart/Action';
-import EmptyCartImage from '../../../../public/images/emptycart.jpg'; // replace with your actual image path
+import EmptyCartImage from '/images/emptycart.jpg'; // replace with your actual image path
 import './Cart.css'
 const Cart = () => {
   const navigate = useNavigate();
@@ -15,7 +15,9 @@ const Cart = () => {
   const handleCheckout = () => {
     navigate("/checkout?step=2");
   }
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     if (jwt) {
       dispatch(getCart(jwt));
@@ -30,7 +32,7 @@ const Cart = () => {
   const hasCartItems = cart.cartItems.length > 0;
 
   return (
-    <div className="pt-14 mb-12">
+    <div className="pt-24 mb-12">
       {isUserLoggedIn ? (
         hasCartItems ? (
           <div className="lg:grid grid-cols-3 lg:px-16 relative">

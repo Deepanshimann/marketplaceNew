@@ -9,42 +9,36 @@
   color: black;
 }
 
-
-
 html, body {
   height: 100%;
   width: 100%;
 }
 
 nav {
-  /* top: 0; */
-  /* position: fixed; */
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 12vh;
-  padding: 2vw 2vw;
-  /* justify-content: space-between; */
+  height: 6.5rem;
+  padding: 2vw 1vw;
   z-index: 10;
-  background-color: #F3F4F6;
-  /* margin-bottom: 1rem; */
-    z-index: 1000; 
+  background-color: #FFFEF8;
+  z-index: 1000; 
 }
 
-nav h1 {
-  font-size: 2.2rem;
-  font-weight: 900;
-  line-height: 2.25rem;
+nav img {
+ height: 6rem;
+ width: auto;
+ margin-right: 1.5rem;
 }
 
 .nav-part2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 3.1vw;
+  gap: 2.5vw;
   padding: 2vh 2vh;
-position: relative;
+  position: relative;
   z-index: 20;
   margin-right: 0.7vw;
   flex-grow: 1;
@@ -53,17 +47,16 @@ position: relative;
 /* Dropdown Styles */
 .nav-elem {
   position: relative;
-
 }
-.nav-bottom {
+/* .nav-bottom {
   width: 0;
   height: 0;
   transition: width 0.3s ease, height 0.3s ease;
-  background-color: #2DD4BF; /* or whatever the intended color is */
+  background-color: #2DD4BF; /* or whatever the intended color is 
   position: absolute;
   bottom: 0;
   left: 0;
-}
+} */
 
 .nav-elem.active ~ .nav-bottom {
   width: 100%; /* Or a specific width relative to the active element */
@@ -86,7 +79,6 @@ position: relative;
   text-transform: uppercase;
   font-weight: 600;
   cursor: pointer;
-
 }
 .nav-elem.active .dropdown {
   display: block; /* Show dropdown when the parent is active */
@@ -100,14 +92,46 @@ position: relative;
   font-family: 'Gilroy', sans-serif;
   color: #333;
   white-space: nowrap; /* Prevent text from wrapping */
-
 }
 
 .nav-elem h5:hover {
   background-color: #f0f0f0;
 }
 
-/* Button and Other Nav Elements*/
+/* Search Bar */
+.search-bar-container {
+  flex-grow: 1;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+} 
+
+.search-bar input {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  padding: 5px 5px;
+border: solid 2px black;
+  font-size: 1rem;
+  border-radius: 50px;
+}
+
+.search-bar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+}
+
+.search-bar button .MuiSvgIcon-root {
+  font-size: 1.6rem;
+  color: #333;
+}
+
+/* Button and Other Nav Elements */
 nav button {
   background-color: #2DD4BF;
   display: flex;
@@ -121,7 +145,6 @@ nav button {
   border: none;
   cursor: pointer;
   transition: background-color 0.3s;
- 
 }
 
 nav button:hover {
@@ -130,25 +153,33 @@ nav button:hover {
 
 /* Media Queries for Responsiveness */
 @media (max-width: 1200px) {
+  nav{
+    flex-direction: column;
+    height: auto;
+  }
   .nav-part2 {
     flex-direction: row;
     gap: 2vw; /* Reduce the gap between items */
     align-items: center;
-    /* height: auto; */
     margin-right: 0.5vw;
-
   }
 
   nav button {
     font-size: 1rem; /* Adjust font size */
   }
+  nav img{
+    height: 6rem;
+    width: auto;
+  }
 }
 
-@media (max-width: 1009px) {
+@media (max-width: 1194px) {
   .navbar nav {
     justify-content: space-between;
   }
-
+nav{
+  padding: 1vw 2vw;
+}
   .nav-part2 h4 {
     font-size: 1rem; /* Further reduce the font size */
   }
@@ -156,38 +187,72 @@ nav button:hover {
   .nav-part2 h5 {
     font-size: 0.85rem; /* Further reduce the font size */
   }
-
+  .search-bar{
+    padding: 1px 2px;
+      }
   .cart-icon, .auth-button {
     display: none; /* Hide cart and button */
   }
 }
 
-
-@media (max-width: 912px) {
+@media (max-width: 975px) {
   .navbar nav {
     flex-direction: column;
     align-items: center;
     height: auto;
     position: static;
   }
-
+.nav-part2{
+  gap: 1.5vw;
+  flex-wrap: wrap;
+}
   .navbar h1 {
-    font-size: 1.5rem; /* Adjust the font size */
+    font-size: 2rem; /* Adjust the font size */
   }
-
-  /* .nav-part2 {
-    display: none; /* Hide the navigation items 
-  } */
-
+  .nav-part2 h4{
+    font-size: larger;
+  }
   .hamburger-menu {
     display: block; /* Show hamburger menu */
   }
+  .search-bar{
+padding: 1px 2px;
+  }
+  .search-bar button {
+display: none;
+  }
 }
 
-
-@media (max-width: 768px) {
+@media (max-width: 779px) {
   nav {
-    flex-direction: column;
+    align-items: center;
+    height: auto;
+    position: static;
+  }
+
+  .nav-part2 {
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.2rem;
+  }
+.nav-part2 h4{
+  font-size:1.5rem;
+}
+.nav-part2 h5{
+  font-size:1.5rem;
+}
+  nav img{
+    height: 7rem;
+  }
+
+  nav button {
+    margin-top: 0rem;
+    font-size: 1rem;
+  }
+
+}
+@media (max-width: 594px) {
+  nav {
     align-items: center;
     height: auto;
     position: static;
@@ -197,22 +262,19 @@ nav button:hover {
     flex-direction: column;
     align-items: center;
   }
-  /* .nav-part2 {
-    display: flex;
-    gap: 3.2vw;
-    align-items: flex-start;
-    padding: 1vh 0;
-    position: relative;
-    z-index: 10;
-  } */
-
-  nav h1 {
-    margin-bottom: 1rem;
+.nav-part2 h4{
+  font-size:1.5rem;
+}
+.nav-part2 h5{
+  font-size:1.5rem;
+}
+  nav img{
+    height: 7rem;
   }
 
   nav button {
-    margin-top: 1rem;
-    font-size: 0.8rem;
+    margin-top: 0rem;
+    font-size: 1rem;
   }
-}
 
+}

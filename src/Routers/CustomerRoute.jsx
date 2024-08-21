@@ -15,6 +15,11 @@ import Helpcenter from '../customer/component/FAQ/HelpCenter/Helpcenter';
 import ContactUs from '../customer/component/FAQ/HelpCenter/contactUs';
 import PaymentSuccess from '../customer/component/Paymentsuccessful/Paymentsuccessful';
 import {useSelector } from 'react-redux';
+import Loginvedio from '../customer/component/Helpvideos/Loginvedio';
+import Productvedio from '../customer/component/Helpvideos/Productvedio';
+import Addcartvedio from '../customer/component/Helpvideos/addcartvedio';
+import Contactvedio from '../customer/component/Helpvideos/contactvedio';
+import HelpSection from '../customer/component/Helpvideos/HelpvideosMain';
 const CustomerRoute = () => {
   const location = useLocation();
 //   const product=useSelector(store=>store)
@@ -35,9 +40,16 @@ const CustomerRoute = () => {
         <Route path='/help-center' element={<Helpcenter />}></Route>
         <Route path='/contact-us' element={<ContactUs />}></Route>
         <Route path="/payment/:orderId" element={<PaymentSuccess />}></Route>
+
+        {/* Video Tutorial Routes */}
+        <Route path="/login-register-logout-video" element={<Loginvedio />} />
+        <Route path="/create-product-video" element={<Productvedio />} />
+        <Route path="/manage-cart-video" element={<Addcartvedio />} />
+        <Route path="/contact-us-video" element={<Contactvedio />} />
       </Routes>
       <div>
       {location.pathname !== '/help-center' && <FaqSection />}
+      <HelpSection/>
         <Footer />
       </div>
     </div>

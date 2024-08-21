@@ -1,0 +1,29 @@
+.section-container{
+
+}
+.heading{
+
+}
+.circles{
+
+}
+@media (max-width: 1099px) {
+.section-container{
+    margin-top: 3rem;
+padding-bottom: 6rem;
+}
+.heading{
+    margin-top: 4rem;
+}
+}
+@media (max-width: 700px) {
+    .section-container{
+    padding-bottom: 6rem;
+    }
+    .heading{
+        margin-top: 4rem;
+        padding-top: 0.5rem;
+        margin-bottom: 0.7rem;
+    }
+   
+    }
