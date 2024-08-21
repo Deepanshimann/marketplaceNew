@@ -6,7 +6,7 @@ const CircleSection = () => {
   const items = [
     { label: 'Gifts For Them', imageUrl: '/images/giftcouple.jpg', link: '/gifts/for-them' },
     { label: 'Gems & Jewels', imageUrl: '/images/jwell.jpeg', link: '/jewels/all' },
-    { label: 'Decorative Touches', imageUrl: '/images/maximalist-rainbow-rug-in-living-room.jpg', link: '/decorative-touches/all' },
+    { label: 'Decorative Touches', imageUrl: '/images/maximalist-rainbow-rug-in-living-room.jpg', link: '/decorative-touches/Wall Art' },
     { label: 'Treasures for Little Ones', imageUrl: '/images/grandma.jpg', link: '/treasure-for-little-ones/all' },
   ];
   const handleItemClick = (link) => {
