@@ -57,7 +57,7 @@ const ProductTable = () => {
       maxPrice: 100000,
       minDiscount: 0,
       sort: sort || "price_low",
-      pageNumber: 1, // Adjust for 0-based index expected by the API
+      pageNumber: page, // Adjust for 0-based index expected by the API
       pageSize: 10,
       stock: availability,
     };

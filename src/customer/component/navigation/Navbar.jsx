@@ -243,7 +243,7 @@ export default function Navbar() {
                    <h5><span onClick={() => { navigate('/help-center'); closeDropdown(); }} tabIndex="0" role="menuitem" onKeyDown={(e) => handleKeyDown(e, () => { navigate('/help-center'); closeDropdown(); })}>Help</span></h5>
                     <h5><span onClick={() => { navigate('/account/orders'); closeDropdown(); }} tabIndex="0" role="menuitem" onKeyDown={(e) => handleKeyDown(e, () => { navigate('/account/orders'); closeDropdown(); })}>My Orders</span></h5>
                     <h5><span onClick={() => { navigate('/contact-us'); closeDropdown(); }} tabIndex="0" role="menuitem" onKeyDown={(e) => handleKeyDown(e, () => { navigate('/contact-us'); closeDropdown(); })}>Contact Us</span></h5>
-                    <h5><span onClick={() => { navigate('/admin'); closeDropdown(); }} tabIndex="0" role="menuitem" onKeyDown={(e) => handleKeyDown(e, () => { navigate('/admin'); closeDropdown(); })}>Admin</span></h5>
+                    {auth.user?.role==="ADMIN" ? <h5><span onClick={() => { navigate('/admin'); closeDropdown(); }} tabIndex="0" role="menuitem" onKeyDown={(e) => handleKeyDown(e, () => { navigate('/admin'); closeDropdown(); })}>Admin</span></h5> : null}
                     <h5><span onClick={handleLogout} tabIndex="0" role="menuitem" onKeyDown={(e) => handleKeyDown(e, handleLogout)}>Logout</span></h5>
                   </>
                 ) : (
