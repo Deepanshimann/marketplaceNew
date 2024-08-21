@@ -12,7 +12,7 @@ import CreateProductForm from "./createproduct/CreateProductForm";
 import ProductsTable from "./products/ProductTable";
 import OrdersTable from "./ordersTable/OrderTable";
 import Customers from "./customers/CustomerTable";
-import './Admin.css';
+import './admin.css';
 import AdminImage from '/images/adultmoney1.jpg';
 
 export default function Admin() {
