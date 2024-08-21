@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, logout } from '../../../State/Auth/Action';
@@ -6,13 +6,14 @@ import PopUpModal from '../../SignInUp/PopUpModal';
 import './Navbar.css';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import Badge from '@mui/material/Badge';
+import SearchIcon from '@mui/icons-material/Search';
 
 // Navigation categories and their dropdown items
 const navigation = {
   categories: [
     { id: 'home', name: 'Home', items: [] },
     { id: 'clothing', name: 'Clothing', items: ['Men', 'Women', 'Kids'] },
-    { id: 'books', name: 'Printed Media', items: ['Fiction', 'Biographies', 'Spiritual', 'Story Collections'] },
+    { id: 'books', name: 'Books', items: ['Fiction', 'Biographies', 'Spiritual', 'Story Collections'] },
     { id: 'electronics', name: 'Electronics', items: ['Entertainment', 'Computing', 'Personal Gadgets', 'Mobile Devices'] },
     { id: 'furniture', name: 'Furniture', items: ['Living Room', 'Bedroom', 'Dining Room', 'Office'] },
   ],
@@ -23,6 +24,7 @@ export default function Navbar() {
   const [modalType, setModalType] = useState('login');
   const [setAnchorEl] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -33,7 +35,7 @@ export default function Navbar() {
   //1. Function to close the user menu 
   const handleCloseUserMenu = () => setAnchorEl(null);
 
-   //2. Function to open the authentication modal (login or register)
+  //2. Function to open the authentication modal (login or register)
   const handleOpenAuthModal = useCallback((type) => {
     setModalType(type);   // Set the modal type (login or register)
     setOpenAuthModal(true);
@@ -45,21 +47,19 @@ export default function Navbar() {
     }
   }, [navigate]);
 
-   //3. Function to close the authentication modal
+  //3. Function to close the authentication modal
   const handleCloseAuthModal = useCallback(() => {
     setOpenAuthModal(false);
   },[]);
 
-
-//a. Effect to fetch user data if JWT token exists but user data is not loaded
+  //a. Effect to fetch user data if JWT token exists but user data is not loaded
   useEffect(() => {
     if (jwt && !auth.user) {
       dispatch(getUser(jwt));
     }
   }, [jwt, auth.user, dispatch]);
 
-
-//b. Effect to close the auth modal and navigate to profile page if user logs in
+  //b. Effect to close the auth modal and navigate to profile page if user logs in
   useEffect(() => {
     if (auth.user) {
       handleCloseAuthModal();
@@ -70,7 +70,7 @@ export default function Navbar() {
   }, [auth.user, handleCloseAuthModal]);
 
   const [loggedOut, setLoggedOut] = useState(false);
-   //4. Function to handle user logout
+  //4. Function to handle user logout
   const handleLogout = useCallback(() => {
     dispatch(logout());
     localStorage.removeItem("jwt");
@@ -79,7 +79,7 @@ export default function Navbar() {
     setLoggedOut(true); // Trigger a re-render if needed
   }, [dispatch, navigate]);
 
- //5. Function to handle category click in the navbar
+  //5. Function to handle category click in the navbar
   const handleCategoryClick = useCallback((category) => {
     if (activeCategory === category) {
       setActiveCategory(null); // Close dropdown if already active
@@ -94,19 +94,18 @@ export default function Navbar() {
     }
   }, [navigate, activeCategory]);
 
-
-   //6. Function to handle item click in dropdowns
+  //6. Function to handle item click in dropdowns
   const handleItemClick = useCallback((category, item) => {
     navigate(`/${category}/${item}`);
     setActiveCategory(null); // Close dropdown on item click
   }, [navigate]);
 
-   //7. Function to close the currently active dropdown
+  //7. Function to close the currently active dropdown
   const closeDropdown = () => {
     setActiveCategory(null);
   };
 
-   //8. Function to handle keyboard navigation (Enter or Space keys)
+  //8. Function to handle keyboard navigation (Enter or Space keys)
   const handleKeyDown = (e, action) => {
     console.log(`Key pressed: ${e.key}`); // Debugging output
     if (e.key === 'Enter' || e.key === ' ') {
@@ -128,14 +127,21 @@ export default function Navbar() {
     };
   }, []);
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?query=${searchQuery}`);
+      setSearchQuery('');
+    }
+  };
+
   return (
     <div className="navbar">
       <nav>
-        <h1>Vintage Store</h1>
+        <img src="/images/vintagestore.png" alt="logo" />
         <div className="nav-part2">
           {navigation.categories.map((category) => (
             <div className={`nav-elem ${activeCategory === category.id ? 'active' : ''}`} key={category.id}>
-
               <h4 
               onClick={() => handleCategoryClick(category.id)}
               onKeyDown={(e) => handleKeyDown(e, () => handleCategoryClick(category.id))}
@@ -161,6 +167,19 @@ export default function Navbar() {
               )}
             </div>
           ))}
+          <div className="search-bar-container">
+            <form onSubmit={handleSearch} className="search-bar">
+              <input 
+                type="text" 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search..."
+              />
+              <button type="submit" className="search-icon">
+                <SearchIcon />
+              </button>
+            </form>
+          </div>
           <div className={`nav-elem ${activeCategory === 'myprofile' ? 'active' : ''}`}>
             <h4 
             onClick={() => handleCategoryClick('myprofile')}
@@ -168,7 +187,7 @@ export default function Navbar() {
             tabIndex="0" 
             role="button" 
             aria-expanded={activeCategory === 'myprofile'}
-            >My Profile</h4>
+            >Profile</h4>
             {activeCategory === 'myprofile' && (
               <div className="dropdown">
                 {auth.user ? (
@@ -181,7 +200,7 @@ export default function Navbar() {
                   </>
                 ) : (
                   <>
-                    <h5><span onClick={() => { handleOpenAuthModal('login'); closeDropdown(); }} tabIndex="0" role="menuitem" onKeyDown={(e) => handleKeyDown(e, () => { handleOpenAuthModal('login'); closeDropdown(); })}>Sign In</span></h5>
+                    <h5><span onClick={() => { handleOpenAuthModal('login'); closeDropdown(); }} tabIndex="0" role="menuitem" onKeyDown={(e) => handleKeyDown(e, () => { handleOpenAuthModal('login'); closeDropdown(); })}>Log In</span></h5>
                     <h5><span onClick={() => { handleOpenAuthModal('register'); closeDropdown(); }} tabIndex="0" role="menuitem" onKeyDown={(e) => handleKeyDown(e, () => { handleOpenAuthModal('register'); closeDropdown(); })}>Register</span></h5>
                     <h5><span onClick={() => { navigate('/contact-us'); closeDropdown(); }} tabIndex="0" role="menuitem" onKeyDown={(e) => handleKeyDown(e, () => { navigate('/contact-us'); closeDropdown(); })}>Contact Us</span></h5>
                     <h5><span onClick={() => { navigate('/help-center'); closeDropdown(); }} tabIndex="0" role="menuitem" onKeyDown={(e) => handleKeyDown(e, () => { navigate('/help-center'); closeDropdown(); })}>Help Center</span></h5>
@@ -208,7 +227,7 @@ export default function Navbar() {
           </button>
         ) : (
           <button onClick={() => handleOpenAuthModal('login')}>
-            Sign In
+            Log In
           </button>
         )}
         <div className={`nav-bottom ${activeCategory ? 'active' : ''}`}></div>

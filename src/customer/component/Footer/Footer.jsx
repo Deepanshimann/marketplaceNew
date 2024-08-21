@@ -1,7 +1,21 @@
+import React, { useState } from 'react';
 import { FaGithub, FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
-import './Footer.css'
+import './Footer.css';
+import { Link } from 'react-router-dom';
+import { FeedbackModal } from '../Feedback/FeedbackModal';  // Assuming you've created a FeedbackModal component
+
 const Footer = () => {
     const Year = new Date().getFullYear();
+    const [feedbackOpen, setFeedbackOpen] = useState(false);
+
+    const toggleFeedback = () => {
+        console.log('Toggling modal:', !feedbackOpen); 
+        setFeedbackOpen(!feedbackOpen);
+    };
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     return (
         <footer className="relative bg-[#212B39] text-white">
@@ -16,56 +30,63 @@ const Footer = () => {
             <div className="container mx-auto pt-20 pb-5 px-5 mt-20">
                 <div className="grid lg:grid-cols-4 sm:grid-cols-1 gap-20 sm:gap-5">
                     <div className="flex flex-col gap-5">
-                        <h2 className="heading text-3xl mt-20  font-bold text-yellow-200">About Us</h2>
-                        <p className="font-sans mr-2 pr-2 my-2 text-white text-xl">Discover the story behind Vintage Store, how it was created and our commitment to sustainability and community.</p>
+                        <h2 className="heading text-3xl  mt-20 font-bold text-yellow-200">About Us</h2>
+                        <p className="font-sans mr-2 pr-2 my-2 text-white text-xl">At Vintage Store, we're committed to delivering exceptional service and building lasting relationships with our customers.</p>
                     </div>
 
-                    <div className=" container flex flex-col gap-5">
-                        <h2 className="heading text-3xl font-bold mt-20 text-yellow-200">Categories</h2>
-                        <ul>
-                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="#">Electronics</a></li>
-                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="#">Clothing</a></li>
-                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="#">Home & Furniture</a></li>
-                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="#">Books</a></li>
-                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="#">Services</a></li>
-                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="#">Rentals</a></li>
-                        </ul>
+                    <div className="container flex flex-col gap-5">
+                        <h2 className="heading text-3xl font-bold mt-20 text-yellow-200 cursor-pointer" onClick={toggleFeedback}>
+                            Feedback
+                        </h2>
+                        <p className="text-white text-xl">Click on feedback <br />to open the form</p>
                     </div>
 
                     <div className="container flex flex-col gap-5">
                         <h2 className=" heading  text-3xl font-bold mt-20 text-yellow-200">Customer Support</h2>
                         <ul>
-                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="/contact-us">Contact Us</a></li>
-                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="/help-center">FAQ</a></li>
-                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="/help-center">Return Policy</a></li>
-                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="/help-center">Help Center</a></li>
-                            <li className="my-2 text-lg  text-white"><a className="font-sans" href="/order">Shipping Information</a></li>
+                            <li className="my-2 text-xl text-white">
+                                <Link to="/contact-us" onClick={scrollToTop}>Contact Us</Link>
+                            </li>
+                            <li className="my-2 text-xl text-white">
+                                <Link to="/help-center" onClick={scrollToTop}>FAQ</Link>
+                            </li>
+                            <li className="my-2 text-xl text-white">
+                                <Link to="/help-center/return-policy" onClick={scrollToTop}>Return Policy</Link>
+                            </li>
+                            <li className="my-2 text-xl text-white">
+                                <Link to="/help-center" onClick={scrollToTop}>Help Center</Link>
+                            </li>
                         </ul>
                     </div>
 
                     <div className="icon flex flex-col gap-7">
                         <h2 className=" heading text-3xl mt-20 font-bold text-yellow-200">Connect With Us</h2>
                         <div className="flex space-x-4">
-                            <a className="icon text-3xl  transform hover:scale-150 transition-all duration-150 ease-in-out" href="#" style={{ color: "#FFFFFF" }}>
+                            <div className="icon text-3xl  transform hover:scale-150 transition-all duration-150 ease-in-out" style={{ color: "#FFFFFF" }}>
                                 <FaGithub />
-                            </a>
-                            <a className="icon text-3xl  transform hover:scale-150 transition-all duration-150 ease-in-out" href="#">
-                                <FaLinkedinIn  />
-                            </a>
-                            <a className="icon text-3xl transform hover:scale-150 transition-all duration-150 ease-in-out" href="#">
-                                <FaTwitter  />
-                            </a>
-                            <a className="icon text-3xl transform hover:scale-150 transition-all duration-150 ease-in-out" href="#">
-                                <FaInstagram   />
-                            </a>
+                            </div>
+                            <div className="icon text-3xl  transform hover:scale-150 transition-all duration-150 ease-in-out">
+                                <FaLinkedinIn />
+                            </div>
+                            <div className="icon text-3xl transform hover:scale-150 transition-all duration-150 ease-in-out">
+                                <FaTwitter />
+                            </div>
+                            <div className="icon text-3xl transform hover:scale-150 transition-all duration-150 ease-in-out">
+                                <FaInstagram />
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className="mt-10 text-center">
                     <p className="text-white">&copy; {Year} YourMarketplace. All rights reserved.</p>
-                    <p><a href="#" className=" text-white">Terms of Service</a> | <a href="#" className="text-white">Privacy Policy</a></p>
+                    <p className="text-white">Terms of Service | Privacy Policy</p>
                 </div>
             </div>
+
+            {/* Feedback Modal */}
+            {feedbackOpen && (
+               <FeedbackModal isOpen={feedbackOpen} onClose={toggleFeedback} />
+            )}
         </footer>
     );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 
 const contactUs = () => {
   return (
-    <div className="bg-yellow-100 text-black  py-44">
+    <div className="bg-yellow-100 text-black  py-24">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-12">Get in Touch</h2>
         <div className="flex flex-col lg:flex-row justify-between">

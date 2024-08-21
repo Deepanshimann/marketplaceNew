@@ -9,7 +9,7 @@ const faqs = [
   },
   {
     question: " How do I list an item for sale?",
-    answer: "Once you're logged in, click on the 'Sell' button, fill out the necessary details about your item or service, upload photos, and set your price. Your listing will be visible to the community once you publish it."
+    answer: "Once you're logged in:  Click on the Profile then click on admin ----> Enter Admin Panel by clicking on blue button----------> Click on Create  fill out the necessary details about your item or service, upload an image, and set your price. Your listing will be visible to the community once you publish it."
   },
   {
     question: "What payment methods are accepted?",
@@ -25,7 +25,7 @@ const faqs = [
   },
   {
     question: "How can I report inappropriate behavior or listings?",
-    answer: "You can report inappropriate behavior or listings by clicking the 'Report' button on the listing or member profile. Our team will review the report and take appropriate action."
+    answer: "You can report inappropriate behavior or listings by sending us email provided in Contact Us. Our team will review the mail and take appropriate action."
   }
 ];
 
@@ -46,11 +46,11 @@ const FaqSection = () => {
               onClick={() => handleToggle(index)}
               className="w-full text-left p-4 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
             >
-              <span className="font-medium">{faq.question}</span>
+              <span className="text-xl">{faq.question}</span>
             </button>
             {activeIndex === index && (
               <div className="mt-2 p-4 bg-green-100 border border-t-0 border-gray-300 rounded-b-md">
-                {faq.answer}
+               <span className="text-xl">{faq.answer}</span> 
               </div>
             )}
           </div>
