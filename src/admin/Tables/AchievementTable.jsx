@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent'
 import { ThemeProvider, createTheme, styled, useTheme } from '@mui/material/styles'
 import './AchivementTable.css'
 
-// Styled component for the triangle shaped background image
+
 const TriangleImg = styled('img')({
   right: 0,
   bottom: 0,
@@ -14,7 +14,7 @@ const TriangleImg = styled('img')({
   position: 'absolute'
 })
 
-// Styled component for the trophy image
+
 const TrophyImg = styled('img')({
   right: 36,
   bottom: 20,

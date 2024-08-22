@@ -75,16 +75,16 @@ export default function Navbar() {
     dispatch(logout());
     localStorage.removeItem("jwt");
     navigate('/');
-    setActiveCategory(null); // Close the dropdown if it's open
-    setLoggedOut(true); // Trigger a re-render if needed
+    setActiveCategory(null); 
+    setLoggedOut(true); 
   }, [dispatch, navigate]);
 
   //5. Function to handle category click in the navbar
   const handleCategoryClick = useCallback((category) => {
     if (activeCategory === category) {
-      setActiveCategory(null); // Close dropdown if already active
+      setActiveCategory(null); 
     } else {
-      setActiveCategory(category); // Open the selected category
+      setActiveCategory(category); 
     }
 
     if (category === 'home') {
@@ -205,8 +205,8 @@ export default function Navbar() {
                     key={`${category.id}-${item}`} 
                     onClick={() => handleItemClick(category.id, item)}
                     onKeyDown={(e) => handleKeyDown(e, () => handleItemClick(category.id, item))}
-                    tabIndex="0"  // Makes it focusable
-                    role="menuitem" // Helps screen readers understand - menu item
+                    tabIndex="0"  
+                    role="menuitem" 
                     >
                       <span>{item}</span>
                     </h5>

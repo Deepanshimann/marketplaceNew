@@ -60,8 +60,7 @@ const product = {
   price: customersProduct.product?.price,
   href: '#',
   breadcrumbs: [
-    { id: 1, name:  customersProduct.product?.topLevelCategory,  },
-    { id: 2, name: customersProduct.product?.secondLevelCategory, },
+   
   ],
   
   colors: [
@@ -324,13 +323,7 @@ const product = {
 </Grid>
     </div>
     </section>  
-    {/* Similar Products*/}  
-    <section className='pt-10'>
-<h1 className='py-5 text-2xl font-bold' >Similar Products</h1>
-<div className='flex flex-wrap space-y-5'>
-  {MenKurta.map((item)=><SecondSectionCard product={item} />)}
-</div>
-    </section>
+  
      {/* Size Guide Modal */}
      <SizeGuide open={openSizeGuide} handleClose={handleCloseSizeGuide} />
       </div>

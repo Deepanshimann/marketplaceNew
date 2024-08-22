@@ -12,10 +12,10 @@ const categories = {
   "Printed Media": ["Fiction", "Biographies", "Spiritual", "Story Collections"],
   Electronics: ["Entertainment", "Computing", "Personal Gadgets", "Mobile Devices"],
   Furniture: ["Living Room", "Bedroom", "Dining Room", "Office"], 
-  Gifts: ["For Him", "For Her"], 
-  Jewels: ["Rings", "Necklaces", "Bracelets"], 
-  "Decorative Touches": ["Wall Art", "Vases", "Candles & Candleholders", "Throw Pillows", "Rugs", "Decorative Lights"], 
-  "Treasures for Little Ones": ["For Him", "For Her"], 
+  "Treasure-for-Little-ones": ["all"], 
+  Jewels: ["gems"], 
+  "Decorative Touches": ["Wall Art"], 
+  "Gifts": ["for-them"], 
 };
 
 const initialSizes = [
@@ -36,7 +36,7 @@ const CreateProductForm = () => {
     color: "",
     discountedPrice: "",
     price: "",
-    discountPercent: "", // Remove manual input
+    discountPercent: "",
     size: initialSizes,
     quantity: "",
     topLevelCategory: "",
@@ -196,7 +196,7 @@ const CreateProductForm = () => {
               value={productData.discountPercent}
               onChange={handleChange}
               type="number"
-              disabled // Disable this field because it's auto-calculated
+              disabled 
             />
           </Grid>
           <Grid item xs={6} sm={4}>
@@ -313,7 +313,7 @@ const CreateProductForm = () => {
             </>
           )}
 
-          {/* Size input specifically for Rings */}
+          {/* Size input for Rings */}
           {productData.secondLevelCategory === "Rings" && (
             <Grid item xs={12} sm={4}>
               <TextField

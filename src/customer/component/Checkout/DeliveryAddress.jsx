@@ -56,9 +56,9 @@ const DeliveryAddress = () => {
                   mt:"1rem",
                    fontSize:"1rem",
                     bgcolor:"#2DD4BF",
-                      borderRadius: "9999px", // Fully rounded button
+                      borderRadius: "9999px", 
           '&:hover': {
-            bgcolor: "#22B8A1", // Darker shade for hover
+            bgcolor: "#22B8A1", 
           },
           }}>Deliver Here</Button>
               </Box>
